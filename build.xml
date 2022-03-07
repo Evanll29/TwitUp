@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<project>
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <copy todir="build/jar/resources">
+            <fileset dir="src/resources"/>
+        </copy>
+        <jar destfile="build/jar/TwitUp.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="com.iup.tp.twitup.TwitupLauncher"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/jar/TwitUp.jar" fork="true"/>
+    </target>
+</project>
