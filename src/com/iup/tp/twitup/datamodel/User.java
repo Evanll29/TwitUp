@@ -164,16 +164,15 @@ public class User {
 	/**
 	 * {@inheritDoc}
 	 */
-//	-> A activer... pourquoi ?
-//	public int hashCode() {
-//		int hashCode = 0;
-//
-//		if (this.mUuid != null) {
-//			hashCode = this.mUuid.hashCode();
-//		}
-//
-//		return hashCode;
-//	}
+	public int hashCode() {
+		int hashCode = 0;
+
+		if (this.mUuid != null) {
+			hashCode = this.mUuid.hashCode();
+		}
+
+		return hashCode;
+	}
 	
 	/**
 	 * @{inheritDoc

@@ -5,9 +5,11 @@ import com.iup.tp.twitup.ihm.utils.RoundedBorder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class UserPanel extends JPanel {
 
+    protected List<UsersObserver> usersObservers;
     JPanel userPanel;
 
     public UserPanel(User user) {
@@ -65,5 +67,11 @@ public class UserPanel extends JPanel {
 
         this.add(userPanel, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.BOTH, new Insets(0,10,0,0), 0, 0));
+
+        followButton.addActionListener(a -> this.usersObservers.forEach(o -> o.follow(user.getUserTag())));
+    }
+
+    public void setObservers(List<UsersObserver> usersObservers) {
+        this.usersObservers = usersObservers;
     }
 }

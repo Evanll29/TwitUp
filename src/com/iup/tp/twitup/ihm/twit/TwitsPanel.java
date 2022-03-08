@@ -2,6 +2,7 @@ package com.iup.tp.twitup.ihm.twit;
 
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
 import com.iup.tp.twitup.ihm.utils.LimitJTextField;
 
@@ -25,7 +26,7 @@ public class TwitsPanel extends JPanel {
     protected Image backgroundImage;
     protected TwitsModel twitsModel;
 
-    public TwitsPanel(TwitsModel twitsModel) {
+    public TwitsPanel(TwitsModel twitsModel, ConnectedUserModel connectedUserModel) {
         super(new GridBagLayout());
         createTwitObservers = new ArrayList<>();
         jPanelMain = new JPanel(new GridBagLayout());
@@ -41,11 +42,11 @@ public class TwitsPanel extends JPanel {
         }
 
         // JPANEL TEXT
-        JLabel labelAvatar = new JLabel(new ImageIcon(twitsModel.connectedUser.getAvatarPath()));
+        JLabel labelAvatar = new JLabel(new ImageIcon(connectedUserModel.getUserConnected().getAvatarPath()));
         labelAvatar.setPreferredSize(new Dimension(50, 50));
         jPanelText.add(labelAvatar, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 0, 10), 0, 0));
-        JTextField fieldTwit = new JTextField("TwitUper un joli message !", 30);
+        JTextField fieldTwit = new JTextField("TwitUper un joli message !", 60);
         fieldTwit.setForeground(Color.GRAY);
         fieldTwit.setDocument(new LimitJTextField(250));
         jPanelText.add(fieldTwit, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
@@ -55,18 +56,18 @@ public class TwitsPanel extends JPanel {
         JButton buttonTwit = new JButton("TwitUper");
         jPanelButton.add(buttonTwit, new GridBagConstraints(1, 1, 1, 1, 1, 0, GridBagConstraints.EAST,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
-        buttonTwit.addActionListener(a -> createTwitObservers.forEach(o -> o.createTwit(twitsModel.connectedUser, fieldTwit.getText())));
+        buttonTwit.addActionListener(a -> createTwitObservers.forEach(o -> o.createTwit(connectedUserModel.getUserConnected(), fieldTwit.getText())));
 
         // JPANEL PARENT
         jPanelCreate.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Écrire un twit"));
-        jPanelCreate.add(jPanelText, new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.CENTER,
-                GridBagConstraints.NONE, new Insets(10, 10, 0, 10), 0, 0));
-        jPanelCreate.add(jPanelButton, new GridBagConstraints(0, 1, 1, 1, 1, 0, GridBagConstraints.EAST,
+        jPanelCreate.add(jPanelText, new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.WEST,
+                GridBagConstraints.NONE, new Insets(0, 0, 0, 10), 0, 0));
+        jPanelCreate.add(jPanelButton, new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.EAST,
                 GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-        jPanelMain.add(jPanelCreate, new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.NORTH,
-                GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        jPanelMain.add(jPanelCreate, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH, new Insets(15, 10, 15, 10), 0, 0));
         jPanelMain.add(new TwitListPanel(twitsModel.getTwitsSortedByDate()), new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         jPanelMain.setOpaque(false);

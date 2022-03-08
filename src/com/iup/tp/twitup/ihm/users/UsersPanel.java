@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm.users;
 
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
 import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
 import com.iup.tp.twitup.ihm.utils.RoundedBorder;
@@ -23,7 +24,7 @@ public class UsersPanel extends JPanel {
     protected Image backgroundImage;
     protected int gridY;
 
-    public UsersPanel(UsersModel usersModel) {
+    public UsersPanel(UsersModel usersModel, ConnectedUserModel connectedUserModel) {
         super(new GridBagLayout());
         gridY = 0;
         usersObservers = new ArrayList<>();
@@ -38,8 +39,10 @@ public class UsersPanel extends JPanel {
             e.printStackTrace();
         }
 
-        for(User user : usersModel.getUsersButConnected()) {
-            usersPanel.add(new UserPanel(user), new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
+        for(User user : usersModel.getUsersExcepted(connectedUserModel.getUserConnected())) {
+            UserPanel userPanel = new UserPanel(user);
+            userPanel.setObservers(this.usersObservers);
+            usersPanel.add(userPanel, new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
                     GridBagConstraints.BOTH, new Insets(10,0,10,0), 0, 0));
         }
 

@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm.users;
 
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
 import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
 
@@ -24,7 +25,7 @@ public class ProfilPanel extends JPanel {
     protected JPanel jPanelNames;
     protected Image backgroundImage;
 
-    public ProfilPanel(User user) {
+    public ProfilPanel(ConnectedUserModel connectedUserModel) {
 
         super(new GridBagLayout());
         usersObservers = new ArrayList<>();
@@ -41,7 +42,7 @@ public class ProfilPanel extends JPanel {
 
         // JPANEL TOP
 
-        JLabel labelAvatar = new JLabel(new ImageIcon(user.getAvatarPath()));
+        JLabel labelAvatar = new JLabel(new ImageIcon(connectedUserModel.getUserConnected().getAvatarPath()));
         labelAvatar.setPreferredSize(new Dimension(50,50));
         jPanelTop.add(labelAvatar, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 0, 10), 0, 0));
@@ -54,7 +55,7 @@ public class ProfilPanel extends JPanel {
         jPanelNames.add(labelTagName, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
-        JLabel labelAccountTagName = new JLabel(user.getUserTag());
+        JLabel labelAccountTagName = new JLabel(connectedUserModel.getUserConnected().getUserTag());
         jPanelNames.add(labelAccountTagName, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
@@ -62,7 +63,7 @@ public class ProfilPanel extends JPanel {
         jPanelNames.add(labelUsername, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
-        JLabel labelAccountUsername = new JLabel(user.getName());
+        JLabel labelAccountUsername = new JLabel(connectedUserModel.getUserConnected().getName());
         jPanelNames.add(labelAccountUsername, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 

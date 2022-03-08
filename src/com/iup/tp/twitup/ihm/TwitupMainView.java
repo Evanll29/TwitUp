@@ -1,7 +1,9 @@
 package com.iup.tp.twitup.ihm;
 
+import com.iup.tp.twitup.ihm.connexion.ConnexionObserver;
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
 import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
+import com.iup.tp.twitup.ihm.users.UsersObserver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,6 +24,8 @@ public class TwitupMainView extends JFrame {
 
     protected List<MainViewObserver> mainViewObserverList;
 
+    protected List<ConnexionObserver> connexionObserverList;
+
     JPanel mainPanel;
 
     protected Image backgroundImage;
@@ -29,6 +33,7 @@ public class TwitupMainView extends JFrame {
     public TwitupMainView(String title) {
         super();
         this.mainViewObserverList = new ArrayList<>();
+        this.connexionObserverList = new ArrayList<>();
         this.setTitle(title);
         helpIcon = new ImageIcon("src/resources/images/helpIcon.png");
     }
@@ -80,7 +85,7 @@ public class TwitupMainView extends JFrame {
         JMenu help = new JMenu("Help");
 
         JMenuItem deconnexion = new JMenuItem("Deconnexion", new ImageIcon("src/resources/images/deconnexion_icon.png"));
-        deconnexion.addActionListener(a -> mainViewObserverList.forEach(MainViewObserver::disconnectUser));
+        deconnexion.addActionListener(a -> connexionObserverList.forEach(ConnexionObserver::disconnectUser));
         JMenuItem close = new JMenuItem("Quitter", new ImageIcon("src/resources/images/exitIcon_20.png"));
         close.addActionListener(a -> mainViewObserverList.forEach(MainViewObserver::closeApp));
 
@@ -130,7 +135,10 @@ public class TwitupMainView extends JFrame {
         mainPanel.repaint();
     }
 
-    public void addObserver(MainViewObserver mainViewObserver) {
+    public void addMainViewObserver(MainViewObserver mainViewObserver) {
         this.mainViewObserverList.add(mainViewObserver);
+    }
+    public void addConnexionObserver(ConnexionObserver connexionObserver) {
+        this.connexionObserverList.add(connexionObserver);
     }
 }

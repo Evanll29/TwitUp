@@ -4,5 +4,5 @@ public interface ConnexionObserver {
 
     void connect(String username, String password);
 
-    void goToRegister(String error);
+    void disconnectUser();
 }

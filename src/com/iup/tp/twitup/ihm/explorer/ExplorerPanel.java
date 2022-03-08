@@ -1,12 +1,10 @@
 package com.iup.tp.twitup.ihm.explorer;
 
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
-import com.iup.tp.twitup.ihm.navbar.NavbarObserver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

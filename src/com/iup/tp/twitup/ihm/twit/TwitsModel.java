@@ -11,22 +11,12 @@ public class TwitsModel {
 
     Set<Twit> twits;
 
-    User connectedUser;
-
     public Set<Twit> getTwits() {
         return twits;
     }
 
     public void setTwits(Set<Twit> twits) {
         this.twits = twits;
-    }
-
-    public User getUserConnected() {
-        return connectedUser;
-    }
-
-    public void setConnectedUser(User connectedUser) {
-        this.connectedUser = connectedUser;
     }
 
     public Set<Twit> getTwitsSortedByDate() {

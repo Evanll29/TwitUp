@@ -9,26 +9,15 @@ public class UsersModel {
 
     protected Set<User> users;
 
-    protected User connectedUser;
-
     public Set<User> getUsers() {
         return users;
-    }
-
-    public User getConnectedUser() {
-        return connectedUser;
-    }
-
-    public void setConnectedUser(User connectedUser) {
-        this.connectedUser = connectedUser;
     }
 
     public void setUsers(Set<User> users) {
         this.users = users;
     }
 
-    public Set<User> getUsersButConnected() {
-
-        return users.stream().filter(u -> !u.getUserTag().equals(connectedUser.getUserTag())).collect(Collectors.toSet());
+    public Set<User> getUsersExcepted(User user) {
+        return users.stream().filter(u -> !u.getUserTag().equals(user.getUserTag())).collect(Collectors.toSet());
     }
 }

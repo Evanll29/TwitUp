@@ -18,7 +18,6 @@ public class TwitListPanel extends JPanel {
 
     protected JPanel twitsPanel;
     protected JScrollPane scrollPane;
-    protected Image backgroundImage;
 
     public TwitListPanel(Set<Twit> twits) {
         super(new GridBagLayout());
@@ -27,13 +26,8 @@ public class TwitListPanel extends JPanel {
         twitsPanel = new JPanel(new GridBagLayout());
         scrollPane = new JScrollPane();
         scrollPane.setAutoscrolls(true);
+        this.setOpaque(false);
         scrollPane.setViewportView(twitsPanel);
-
-        try {
-            backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         for(Twit twit : twits) {
             twitsPanel.add(new TwitPanel(twit), new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
@@ -43,11 +37,5 @@ public class TwitListPanel extends JPanel {
 
         this.add(twitsPanel, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.BOTH, new Insets(10, 10, 10, 10), 0, 0));
-    }
-
-
-    @Override
-    public void paintComponent(Graphics g) {
-        g.drawImage(backgroundImage, 0, 0, null);
     }
 }

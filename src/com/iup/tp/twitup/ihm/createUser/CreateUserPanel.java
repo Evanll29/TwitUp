@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm.createUser;
 
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
+import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,6 +16,7 @@ import java.util.Objects;
 public class CreateUserPanel extends JPanel {
 
     protected List<CreationObserver> creationObservers;
+    protected List<NavigationObserver> navigationObservers;
     protected String pathToFile;
     protected JPanel jPanelCreation;
     protected JPanel jPanelText;
@@ -24,6 +26,7 @@ public class CreateUserPanel extends JPanel {
     public CreateUserPanel() {
         super(new GridBagLayout());
         this.creationObservers = new ArrayList<>();
+        this.navigationObservers = new ArrayList<>();
         jPanelCreation = new JPanel(new GridBagLayout());
         jPanelText = new JPanel(new GridBagLayout());
         jPanelButtons = new JPanel(new GridBagLayout());
@@ -107,11 +110,15 @@ public class CreateUserPanel extends JPanel {
 
         buttonRegister.addActionListener(a -> this.creationObservers.forEach(c->c.register(fieldTag.getText(), new String(fieldPassword.getPassword()), fieldName.getText(), pathToFile)));
 
-        buttonLogin.addActionListener(a -> this.creationObservers.forEach(c -> c.goToConnexion(null)));
+        buttonLogin.addActionListener(a -> this.navigationObservers.forEach(c -> c.goToConnexion(null)));
     }
 
     public void addObserver(CreationObserver observer) {
         this.creationObservers.add(observer);
+    }
+
+    public void addNavigationObserver(NavigationObserver observer) {
+        this.navigationObservers.add(observer);
     }
 
     protected FileFilter getFileFilter() {

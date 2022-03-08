@@ -9,7 +9,7 @@ import java.util.List;
 
 public class NavbarPanel extends JPanel {
 
-    protected List<NavbarObserver> navbarObservers;
+    protected List<NavigationObserver> navbarObservers;
 
     protected JPanel jPanelNavbar;
 
@@ -31,10 +31,10 @@ public class NavbarPanel extends JPanel {
         profile.setBorder(new RoundedBorder(10));
         users.setBorder(new RoundedBorder(10));
 
-        accueil.addActionListener(a -> navbarObservers.forEach(NavbarObserver::goToTwits));
-        explorer.addActionListener(a -> navbarObservers.forEach(NavbarObserver::goToExplorer));
-        profile.addActionListener(a -> navbarObservers.forEach(NavbarObserver::goToProfile));
-        users.addActionListener(a -> navbarObservers.forEach(NavbarObserver::goToUsers));
+        accueil.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToTwits));
+        explorer.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToExplorer));
+        profile.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToProfile));
+        users.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToUsers));
 
 
         jPanelNavbar.add(accueil, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
@@ -52,7 +52,7 @@ public class NavbarPanel extends JPanel {
 
     }
 
-    public void addObserver(NavbarObserver observer) {
+    public void addObserver(NavigationObserver observer) {
         this.navbarObservers.add(observer);
     }
 

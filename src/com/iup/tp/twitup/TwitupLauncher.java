@@ -18,5 +18,4 @@ public class TwitupLauncher {
 		Twitup twitup = new Twitup();
 		twitup.show();
 	}
-
 }
