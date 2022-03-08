@@ -16,5 +16,10 @@ pipeline {
                 bat 'mvn install'
             }
         }
+        stage('verify') {
+            steps {
+                bat 'mvn clean verify sonar:sonar'
+            }
+        }
     }
 }
