@@ -78,7 +78,7 @@ public class UserController implements ConnexionObserver, CreationObserver, User
             navigationObserver.goToRegister("Erreur: ce nom d'utilisateur est déjà utilisé");
         }else {
             if(!validateString(pathToAvatar, 0)){
-                pathToAvatar = Twitup.class.getResource("images\\user_icon.png").getPath();
+                pathToAvatar = "images\\user_icon.png";
             } else {
                 String newFileName ="images\\profiles\\" + (new File(pathToAvatar).getName());
                 FilesUtils.copyFile(pathToAvatar, newFileName);
@@ -96,7 +96,7 @@ public class UserController implements ConnexionObserver, CreationObserver, User
         User connectedUser = this.connectedUserModel.getUserConnected();
         connectedUser.getFollows().add(tag);
         connectedUserModel.setUserConnected(connectedUser);
-        this.mEntityManager.sendUser(connectedUser);
+        this.mDatabase.modifiyUser(connectedUser);
     }
 
     @Override

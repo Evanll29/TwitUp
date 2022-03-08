@@ -1,6 +1,7 @@
-package com.iup.tp.twitup.ihm.users;
+package com.iup.tp.twitup.ihm.users.components;
 
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.users.UsersObserver;
 import com.iup.tp.twitup.ihm.utils.RoundedBorder;
 
 import javax.swing.*;

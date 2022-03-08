@@ -3,20 +3,18 @@ package com.iup.tp.twitup.ihm.users;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
-import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
-import com.iup.tp.twitup.ihm.utils.RoundedBorder;
+import com.iup.tp.twitup.ihm.twit.TwitsListener;
+import com.iup.tp.twitup.ihm.users.components.UserPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-public class UsersPanel extends JPanel {
+public class UsersPanel extends JPanel implements UsersListener{
 
     protected List<UsersObserver> usersObservers;
     protected JPanel usersPanel;
@@ -32,6 +30,7 @@ public class UsersPanel extends JPanel {
         scrollPane = new JScrollPane();
         scrollPane.setAutoscrolls(true);
         scrollPane.setViewportView(usersPanel);
+        usersModel.addUsersListener(this);
 
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
@@ -58,5 +57,10 @@ public class UsersPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(backgroundImage, 0, 0, null);
+    }
+
+    @Override
+    public void update() {
+
     }
 }

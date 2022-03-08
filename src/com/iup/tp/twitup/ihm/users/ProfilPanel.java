@@ -42,7 +42,7 @@ public class ProfilPanel extends JPanel {
 
         // JPANEL TOP
 
-        JLabel labelAvatar = new JLabel(new ImageIcon(connectedUserModel.getUserConnected().getAvatarPath()));
+        JLabel labelAvatar = new JLabel(new ImageIcon(ProfilPanel.class.getResource(connectedUserModel.getUserConnected().getAvatarPath())));
         labelAvatar.setPreferredSize(new Dimension(50,50));
         jPanelTop.add(labelAvatar, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 0, 10), 0, 0));

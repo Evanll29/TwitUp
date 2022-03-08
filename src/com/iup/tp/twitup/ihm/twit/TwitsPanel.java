@@ -1,22 +1,19 @@
 package com.iup.tp.twitup.ihm.twit;
 
-import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
+import com.iup.tp.twitup.ihm.twit.components.TwitListPanel;
 import com.iup.tp.twitup.ihm.utils.LimitJTextField;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-public class TwitsPanel extends JPanel {
+public class TwitsPanel extends JPanel implements TwitsListener{
 
     protected List<CreateTwitObserver> createTwitObservers;
     protected JPanel jPanelMain;
@@ -34,6 +31,7 @@ public class TwitsPanel extends JPanel {
         jPanelText = new JPanel(new GridBagLayout());
         jPanelButton = new JPanel(new GridBagLayout());
         this.twitsModel = twitsModel;
+        this.twitsModel.addTwitsListener(this);
 
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
@@ -84,4 +82,12 @@ public class TwitsPanel extends JPanel {
         g.drawImage(backgroundImage, 0, 0, null);
     }
 
+    @Override
+    public void update() {
+        jPanelMain.remove(1);
+        jPanelMain.add(new TwitListPanel(twitsModel.getTwitsSortedByDate()), new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+                GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        this.revalidate();
+        this.repaint();
+    }
 }

@@ -164,6 +164,7 @@ public class User {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public int hashCode() {
 		int hashCode = 0;
 

@@ -1,18 +1,11 @@
-package com.iup.tp.twitup.ihm.twit;
+package com.iup.tp.twitup.ihm.twit.components;
 
 import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
-import com.iup.tp.twitup.ihm.users.UserPanel;
+import com.iup.tp.twitup.ihm.twit.TwitsListener;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class TwitListPanel extends JPanel {
 

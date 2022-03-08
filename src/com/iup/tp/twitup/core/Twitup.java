@@ -161,6 +161,9 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 	 * @param directoryPath
 	 */
 	public void initDirectory(String directoryPath) {
+		if(!isValideExchangeDirectory(new File(directoryPath))) {
+			throw new Error("Répertoire choisi invalide");
+		}
 		mExchangeDirectoryPath = directoryPath;
 		mWatchableDirectory = new WatchableDirectory(directoryPath);
 		mEntityManager.setExchangeDirectory(directoryPath);
@@ -173,13 +176,6 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 		// ... setVisible?
 	}
 
-
-
-	private void goToHomePage() {
-		this.goToTwits();
-	}
-
-
 	@Override
 	public void closeApp() {
 		mMainView.dispatchEvent(new WindowEvent(mMainView, WindowEvent.WINDOW_CLOSING));
@@ -190,6 +186,7 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 	public void goToRegister(String error) {
 		CreateUserPanel creationPanel = new CreateUserPanel();
 		creationPanel.addObserver(this.userController);
+		creationPanel.addNavigationObserver(this);
 		if(error != null) {
 			creationPanel.addErrorMessage(error);
 		}
@@ -200,6 +197,7 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 	public void goToConnexion(String error) {
 		ConnexionPanel connexionPanel = new ConnexionPanel();
 		connexionPanel.addConnexionObserver(this.userController);
+		connexionPanel.addNavigationObserver(this);
 		if(error != null) {
 			connexionPanel.addErrorMessage(error);
 		}
