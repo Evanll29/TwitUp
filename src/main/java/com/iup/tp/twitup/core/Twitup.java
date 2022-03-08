@@ -1,10 +1,10 @@
 package com.iup.tp.twitup.core;
-
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.HashSet;
 import java.util.UUID;
 
+import com.iup.tp.twitup.common.FilesUtils;
 import com.iup.tp.twitup.datamodel.Database;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.Twit;
@@ -34,7 +34,7 @@ import javax.swing.*;
 
 /**
  * Classe principale l'application.
- * 
+ *
  * @author S.Lucas
  */
 public class Twitup implements MainViewObserver, ConnexionObserver, CreationObserver, UsersObserver, CreateTwitObserver, NavbarObserver, ExplorerObserver {
@@ -137,14 +137,14 @@ public class Twitup implements MainViewObserver, ConnexionObserver, CreationObse
 	 * pouvoir utiliser l'application</b>
 	 */
 	protected void initDirectory() {
-		String directory = mMainView.chooseDirectory("src\\main\\resources\\database");
+		String directory = mMainView.chooseDirectory("src\\resources\\database");
 		this.initDirectory(directory);
 	}
 
 	/**
 	 * Indique si le fichier donné est valide pour servire de répertoire
 	 * d'échange
-	 * 
+	 *
 	 * @param directory
 	 *            , Répertoire à tester.
 	 */
@@ -172,7 +172,7 @@ public class Twitup implements MainViewObserver, ConnexionObserver, CreationObse
 
 	/**
 	 * Initialisation du répertoire d'échange.
-	 * 
+	 *
 	 * @param directoryPath
 	 */
 	public void initDirectory(String directoryPath) {
@@ -249,11 +249,17 @@ public class Twitup implements MainViewObserver, ConnexionObserver, CreationObse
 		}else {
 			if(!validateString(pathToAvatar, 0)){
 				pathToAvatar = "src\\resources\\images\\user_icon.png";
+			} else {
+				String newFileName ="src\\resources\\images\\profiles\\" + (new File(pathToAvatar).getName());
+				FilesUtils.copyFile(pathToAvatar, newFileName);
+				pathToAvatar = newFileName;
 			}
 
 			User newUser = new User(UUID.randomUUID(), tag, password, name, new HashSet<>(), pathToAvatar);
 			this.mEntityManager.sendUser(newUser);
 			this.setConnectedUser(newUser);
+			this.usersModel.setConnectedUser(newUser);
+			this.twitsModel.setConnectedUser(newUser);
 			goToHomePage();
 		}
 	}

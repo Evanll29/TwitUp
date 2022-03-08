@@ -28,7 +28,7 @@ public class TwitupMainView extends JFrame {
         super();
         this.mainViewObserverList = new ArrayList<>();
         this.setTitle(title);
-        helpIcon = new ImageIcon("src/resources/images/helpIcon.png");
+        helpIcon = new ImageIcon("src/main/resources/images/helpIcon.png");
     }
 
     /**
