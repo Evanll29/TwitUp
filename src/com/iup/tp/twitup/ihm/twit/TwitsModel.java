@@ -1,7 +1,6 @@
 package com.iup.tp.twitup.ihm.twit;
 
 import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.datamodel.User;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

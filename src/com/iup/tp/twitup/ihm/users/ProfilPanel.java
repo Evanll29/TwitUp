@@ -1,15 +1,10 @@
 package com.iup.tp.twitup.ihm.users;
 
-import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
-import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
-import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +30,7 @@ public class ProfilPanel extends JPanel {
         jPanelMain = new JPanel(new GridBagLayout());
 
         try {
-            backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
+            backgroundImage = ImageIO.read(Objects.requireNonNull(ProfilPanel.class.getResource("/images/background.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

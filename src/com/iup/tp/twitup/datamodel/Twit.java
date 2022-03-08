@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.naming.ldap.HasControls;
-
 import com.iup.tp.twitup.common.Constants;
 
 /**

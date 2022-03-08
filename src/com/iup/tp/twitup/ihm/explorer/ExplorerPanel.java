@@ -1,7 +1,5 @@
 package com.iup.tp.twitup.ihm.explorer;
 
-import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +23,7 @@ public class ExplorerPanel extends JPanel {
         jPanelExplorer = new JPanel(new GridBagLayout());
 
         try {
-            backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
+            backgroundImage = ImageIO.read(Objects.requireNonNull(ExplorerPanel.class.getResource("/images/background.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

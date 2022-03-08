@@ -1,6 +1,5 @@
 package com.iup.tp.twitup.ihm.createUser;
 
-import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
 import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
 
 import javax.imageio.ImageIO;
@@ -32,7 +31,7 @@ public class CreateUserPanel extends JPanel {
         jPanelButtons = new JPanel(new GridBagLayout());
 
         try {
-            backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
+            backgroundImage = ImageIO.read(Objects.requireNonNull(CreateUserPanel.class.getResource("/images/background.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

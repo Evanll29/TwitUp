@@ -1,7 +1,6 @@
 package com.iup.tp.twitup.ihm.twit;
 
 import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
-import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
 import com.iup.tp.twitup.ihm.twit.components.TwitListPanel;
 import com.iup.tp.twitup.ihm.utils.LimitJTextField;
 
@@ -34,7 +33,7 @@ public class TwitsPanel extends JPanel implements TwitsListener{
         this.twitsModel.addTwitsListener(this);
 
         try {
-            backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
+            backgroundImage = ImageIO.read(Objects.requireNonNull(TwitsPanel.class.getResource("/images/background.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

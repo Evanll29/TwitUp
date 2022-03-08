@@ -3,7 +3,6 @@ package com.iup.tp.twitup.ihm.users;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
-import com.iup.tp.twitup.ihm.twit.TwitsListener;
 import com.iup.tp.twitup.ihm.users.components.UserPanel;
 
 import javax.imageio.ImageIO;

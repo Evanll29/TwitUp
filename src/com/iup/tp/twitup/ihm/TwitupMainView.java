@@ -1,15 +1,11 @@
 package com.iup.tp.twitup.ihm;
 
 import com.iup.tp.twitup.ihm.connexion.ConnexionObserver;
-import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
 import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
-import com.iup.tp.twitup.ihm.users.UsersObserver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +70,7 @@ public class TwitupMainView extends JFrame {
         mainPanel = new JPanel(new GridBagLayout());
 
         try {
-            backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
+            backgroundImage = ImageIO.read(Objects.requireNonNull(TwitupMainView.class.getResource("/images/background.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

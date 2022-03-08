@@ -1,7 +1,6 @@
 package com.iup.tp.twitup.ihm.twit.components;
 
 import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.ihm.twit.TwitsListener;
 
 import javax.swing.*;
 import java.awt.*;

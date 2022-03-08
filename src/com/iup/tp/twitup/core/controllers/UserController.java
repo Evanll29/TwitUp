@@ -2,18 +2,12 @@ package com.iup.tp.twitup.core.controllers;
 
 import com.iup.tp.twitup.common.FilesUtils;
 import com.iup.tp.twitup.core.EntityManager;
-import com.iup.tp.twitup.core.Twitup;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.User;
-import com.iup.tp.twitup.ihm.MainViewObserver;
-import com.iup.tp.twitup.ihm.TwitupMainView;
 import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.connexion.ConnexionObserver;
-import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
-import com.iup.tp.twitup.ihm.createUser.CreateUserPanel;
 import com.iup.tp.twitup.ihm.createUser.CreationObserver;
 import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
-import com.iup.tp.twitup.ihm.users.ProfilPanel;
 import com.iup.tp.twitup.ihm.users.UsersModel;
 import com.iup.tp.twitup.ihm.users.UsersObserver;
 
@@ -53,7 +47,7 @@ public class UserController implements ConnexionObserver, CreationObserver, User
     @Override
     public void connect(String username, String password) {
         boolean userExists = mDatabase.getUsers().stream().anyMatch(u -> u.getUserTag().equals(username) && u.getUserPassword().equals(password));
-        if(userExists) {
+        if (userExists) {
             this.connectedUserModel.setUserConnected(mDatabase.getUsers().stream().filter(u -> u.getUserTag().equals(username)).findFirst().get());
             navigationObserver.goToTwits();
         } else {
@@ -63,24 +57,21 @@ public class UserController implements ConnexionObserver, CreationObserver, User
 
     @Override
     public void register(String tag, String password, String name, String pathToAvatar) {
-        if(!validateString(tag, 5)) {
+        if (!validateString(tag, 5)) {
             navigationObserver.goToRegister("Erreur: tag incorrect, il doit faire au moins 5 caractères");
-        }
-        else if(mDatabase.getUsers().stream().anyMatch(u -> u.getUserTag().equals(tag))) {
+        } else if (mDatabase.getUsers().stream().anyMatch(u -> u.getUserTag().equals(tag))) {
             navigationObserver.goToRegister("Erreur: ce tag est déjà utilisé");
-        }
-        else if(!validateString(password, 8)) {
+        } else if (!validateString(password, 8)) {
             navigationObserver.goToRegister("Erreur: mot de passe incorrect, il doit faire au moins 8 caractères");
-        }
-        else if(!validateString(name, 3)) {
+        } else if (!validateString(name, 3)) {
             navigationObserver.goToRegister("Erreur: nom d'utilisateur incorrect, il doit faire au moins 3 caractères");
-        } else if(mDatabase.getUsers().stream().anyMatch(u -> u.getName().equals(name))) {
+        } else if (mDatabase.getUsers().stream().anyMatch(u -> u.getName().equals(name))) {
             navigationObserver.goToRegister("Erreur: ce nom d'utilisateur est déjà utilisé");
-        }else {
-            if(!validateString(pathToAvatar, 0)){
-                pathToAvatar = "images\\user_icon.png";
+        } else {
+            if (!validateString(pathToAvatar, 0)) {
+                pathToAvatar = "/images/user_icon.png";
             } else {
-                String newFileName ="images\\profiles\\" + (new File(pathToAvatar).getName());
+                String newFileName = "/images/profiles/" + (new File(pathToAvatar).getName());
                 FilesUtils.copyFile(pathToAvatar, newFileName);
                 pathToAvatar = newFileName;
             }
