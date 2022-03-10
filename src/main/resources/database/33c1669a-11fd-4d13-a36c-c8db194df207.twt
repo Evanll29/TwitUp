@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
-    <ID>77ad0eae-622e-4035-9f0c-d8f090ffbe48</ID>
-    <EmissionDate>1646746340704</EmissionDate>
+    <ID>33c1669a-11fd-4d13-a36c-c8db194df207</ID>
+    <EmissionDate>1646929904302</EmissionDate>
     <Twiter>2fd00bfd-146f-47f1-af48-98a0bc0bef15</Twiter>
-    <Text>Bonjour, je suis nouveau sur TwitUp !</Text>
+    <Text>Bonjour, je suis #nouveau sur #twitup</Text>
 </ns2:twitXml>

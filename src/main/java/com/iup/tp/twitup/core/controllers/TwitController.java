@@ -65,7 +65,7 @@ public class TwitController implements ExplorerObserver, CreateTwitObserver {
         Set<Twit> allTwits = this.mDatabase.getTwits();
         Set<Twit> sortedTwits = new HashSet<>();
         for(Twit twit : allTwits) {
-            if(twit.getUserTags().contains(search) || twit.getTwiter().getUserTag().contains(search)) {
+            if(twit.getUserTags().contains(search) || twit.getTwiter().getUserTag().equals(search)) {
                 sortedTwits.add(twit);
             }
         }

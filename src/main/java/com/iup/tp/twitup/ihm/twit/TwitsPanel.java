@@ -78,7 +78,7 @@ public class TwitsPanel extends JPanel implements TwitsListener {
     public void update() {
         this.remove(1);
         this.add(new TwitListPanel(twitsModel.getTwitsSortedByDate()), new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
-                GridBagConstraints.NONE, new Insets(0, 10, 0, 10), 0, 0));
+                GridBagConstraints.BOTH, new Insets(0, 10, 0, 10), 0, 0));
         this.revalidate();
         this.repaint();
     }

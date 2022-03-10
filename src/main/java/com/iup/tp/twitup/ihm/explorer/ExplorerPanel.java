@@ -2,6 +2,7 @@ package com.iup.tp.twitup.ihm.explorer;
 
 import com.iup.tp.twitup.ihm.twit.TwitsListener;
 import com.iup.tp.twitup.ihm.twit.TwitsModel;
+import com.iup.tp.twitup.ihm.twit.components.TwitListPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -47,6 +48,9 @@ public class ExplorerPanel extends JPanel implements TwitsListener {
         this.add(jPanelExplorer, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
+        this.add(new TwitListPanel(twitsModel.getTwitsSortedByDate()), new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+
         buttonTwit.addActionListener(a -> explorerObservers.forEach(o -> o.searchTwit(fieldTwit.getText())));
     }
 
@@ -61,6 +65,10 @@ public class ExplorerPanel extends JPanel implements TwitsListener {
 
     @Override
     public void update() {
-        System.out.println(twitsModel.getTwits().size());
+        this.remove(1);
+        this.add(new TwitListPanel(twitsModel.getTwitsSortedByDate()), new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH, new Insets(0, 10, 0, 10), 0, 0));
+        this.revalidate();
+        this.repaint();
     }
 }
