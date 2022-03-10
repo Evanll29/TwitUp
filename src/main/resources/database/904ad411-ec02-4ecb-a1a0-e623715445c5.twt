@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
+    <ID>904ad411-ec02-4ecb-a1a0-e623715445c5</ID>
+    <EmissionDate>1646754252141</EmissionDate>
+    <Twiter>36187242-3bde-421c-8e15-bef0d1b24132</Twiter>
+    <Text>Bonjour, il y a cours à 5h30 jeudi matin</Text>
+</ns2:twitXml>

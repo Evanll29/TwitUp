@@ -1,32 +1,23 @@
 package com.iup.tp.twitup.core;
+
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.HashSet;
-import java.util.UUID;
 
-import com.iup.tp.twitup.common.FilesUtils;
+import com.iup.tp.twitup.core.controllers.TwitController;
+import com.iup.tp.twitup.core.controllers.UserController;
 import com.iup.tp.twitup.datamodel.Database;
 import com.iup.tp.twitup.datamodel.IDatabase;
-import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.MainViewObserver;
 import com.iup.tp.twitup.ihm.TwitupMainView;
 import com.iup.tp.twitup.ihm.TwitupMock;
-import com.iup.tp.twitup.ihm.explorer.ExplorerObserver;
 import com.iup.tp.twitup.ihm.explorer.ExplorerPanel;
-import com.iup.tp.twitup.ihm.navbar.NavbarObserver;
+import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
 import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
-import com.iup.tp.twitup.ihm.twit.CreateTwitObserver;
-import com.iup.tp.twitup.ihm.twit.TwitsModel;
 import com.iup.tp.twitup.ihm.twit.TwitsPanel;
 import com.iup.tp.twitup.ihm.users.ProfilPanel;
-import com.iup.tp.twitup.ihm.users.UsersModel;
-import com.iup.tp.twitup.ihm.users.UsersObserver;
-import com.iup.tp.twitup.ihm.connexion.ConnexionObserver;
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
-import com.iup.tp.twitup.ihm.createUser.CreationObserver;
 import com.iup.tp.twitup.ihm.createUser.CreateUserPanel;
 import com.iup.tp.twitup.ihm.users.UsersPanel;
 
@@ -34,10 +25,10 @@ import javax.swing.*;
 
 /**
  * Classe principale l'application.
- *
+ * 
  * @author S.Lucas
  */
-public class Twitup implements MainViewObserver, ConnexionObserver, CreationObserver, UsersObserver, CreateTwitObserver, NavbarObserver, ExplorerObserver {
+public class Twitup implements NavigationObserver,  MainViewObserver {
 	/**
 	 * Base de données.
 	 */
@@ -73,13 +64,8 @@ public class Twitup implements MainViewObserver, ConnexionObserver, CreationObse
 	 */
 	protected String mUiClassName;
 
-	/**
-	 * Utilisateur actuellement connecté
-	 */
-	protected User connectedUser;
-
-	protected TwitsModel twitsModel;
-	protected UsersModel usersModel;
+	protected UserController userController;
+	protected TwitController twitController;
 
 	/**
 	 * Constructeur.
@@ -96,15 +82,15 @@ public class Twitup implements MainViewObserver, ConnexionObserver, CreationObse
 			this.initMock();
 		}
 
+		//Initialisation des contrôleurs
+		this.userController = new UserController(this.mDatabase, this.mEntityManager, this);
+		this.twitController = new TwitController(this.mDatabase, this.mEntityManager, this.mMainView);
+
 		// Initialisation de l'IHM
 		this.initGui();
 
 		// Initialisation du répertoire d'échange
 		this.initDirectory();
-
-		// Initialisationd des modèles
-		this.twitsModel = new TwitsModel();
-		this.usersModel = new UsersModel();
 	}
 
 	/**
@@ -124,10 +110,9 @@ public class Twitup implements MainViewObserver, ConnexionObserver, CreationObse
 	protected void initGui() {
 		mMainView = new TwitupMainView("Twitup");
 		this.mMainView.showGUI();
-		this.mMainView.addObserver(this);
-		ConnexionPanel c = new ConnexionPanel();
-		c.addObserver(this);
-		this.mMainView.setPanel(c, null);
+		this.mMainView.addMainViewObserver(this);
+		this.mMainView.addConnexionObserver(this.userController);
+		this.goToConnexion(null);
 	}
 
 	/**
@@ -137,14 +122,14 @@ public class Twitup implements MainViewObserver, ConnexionObserver, CreationObse
 	 * pouvoir utiliser l'application</b>
 	 */
 	protected void initDirectory() {
-		String directory = mMainView.chooseDirectory("src\\resources\\database");
+		String directory = mMainView.chooseDirectory(".");
 		this.initDirectory(directory);
 	}
 
 	/**
 	 * Indique si le fichier donné est valide pour servire de répertoire
 	 * d'échange
-	 *
+	 * 
 	 * @param directory
 	 *            , Répertoire à tester.
 	 */
@@ -172,10 +157,13 @@ public class Twitup implements MainViewObserver, ConnexionObserver, CreationObse
 
 	/**
 	 * Initialisation du répertoire d'échange.
-	 *
+	 * 
 	 * @param directoryPath
 	 */
 	public void initDirectory(String directoryPath) {
+		if(!isValideExchangeDirectory(new File(directoryPath))) {
+			throw new Error("Répertoire choisi invalide");
+		}
 		mExchangeDirectoryPath = directoryPath;
 		mWatchableDirectory = new WatchableDirectory(directoryPath);
 		mEntityManager.setExchangeDirectory(directoryPath);
@@ -188,43 +176,17 @@ public class Twitup implements MainViewObserver, ConnexionObserver, CreationObse
 		// ... setVisible?
 	}
 
-	public void setConnectedUser(User user) {
-		this.connectedUser = user;
-		System.out.println("Nouvel utilisateur connecté: " + user.getUserTag());
-	}
-
-	private void goToHomePage() {
-		this.goToTwits();
-	}
-
-	@Override
-	public void disconnectUser() {
-		this.connectedUser = null;
-		this.goToConnexion(null);
-	}
-
 	@Override
 	public void closeApp() {
 		mMainView.dispatchEvent(new WindowEvent(mMainView, WindowEvent.WINDOW_CLOSING));
 	}
 
-	@Override
-	public void connect(String username, String password) {
-		boolean userExists = mDatabase.getUsers().stream().anyMatch(u -> u.getUserTag().equals(username) && u.getUserPassword().equals(password));
-		if(userExists) {
-			this.setConnectedUser(mDatabase.getUsers().stream().filter(u -> u.getUserTag().equals(username)).findFirst().get());
-			this.twitsModel.setConnectedUser(connectedUser);
-			this.usersModel.setConnectedUser(this.connectedUser);
-			this.goToHomePage();
-		} else {
-			goToConnexion("Erreur: tag ou mot de passe incorrect");
-		}
-	}
 
 	@Override
 	public void goToRegister(String error) {
 		CreateUserPanel creationPanel = new CreateUserPanel();
-		creationPanel.addObserver(this);
+		creationPanel.addObserver(this.userController);
+		creationPanel.addNavigationObserver(this);
 		if(error != null) {
 			creationPanel.addErrorMessage(error);
 		}
@@ -232,85 +194,42 @@ public class Twitup implements MainViewObserver, ConnexionObserver, CreationObse
 	}
 
 	@Override
-	public void register(String tag, String password, String name, String pathToAvatar) {
-		if(!validateString(tag, 5)) {
-			goToRegister("Erreur: tag incorrect, il doit faire au moins 5 caractères");
-		}
-		else if(mDatabase.getUsers().stream().anyMatch(u -> u.getUserTag().equals(tag))) {
-			goToRegister("Erreur: ce tag est déjà utilisé");
-		}
-		else if(!validateString(password, 8)) {
-			goToRegister("Erreur: mot de passe incorrect, il doit faire au moins 8 caractères");
-		}
-		else if(!validateString(name, 3)) {
-			goToRegister("Erreur: nom d'utilisateur incorrect, il doit faire au moins 3 caractères");
-		} else if(mDatabase.getUsers().stream().anyMatch(u -> u.getName().equals(name))) {
-			goToRegister("Erreur: ce nom d'utilisateur est déjà utilisé");
-		}else {
-			if(!validateString(pathToAvatar, 0)){
-				pathToAvatar = "src\\resources\\images\\user_icon.png";
-			} else {
-				String newFileName ="src\\resources\\images\\profiles\\" + (new File(pathToAvatar).getName());
-				FilesUtils.copyFile(pathToAvatar, newFileName);
-				pathToAvatar = newFileName;
-			}
-
-			User newUser = new User(UUID.randomUUID(), tag, password, name, new HashSet<>(), pathToAvatar);
-			this.mEntityManager.sendUser(newUser);
-			this.setConnectedUser(newUser);
-			this.usersModel.setConnectedUser(newUser);
-			this.twitsModel.setConnectedUser(newUser);
-			goToHomePage();
-		}
-	}
-
-	@Override
 	public void goToConnexion(String error) {
 		ConnexionPanel connexionPanel = new ConnexionPanel();
-		connexionPanel.addObserver(this);
+		connexionPanel.addConnexionObserver(this.userController);
+		connexionPanel.addNavigationObserver(this);
 		if(error != null) {
 			connexionPanel.addErrorMessage(error);
 		}
 		this.mMainView.setPanel(connexionPanel, null);
 	}
 
-	private boolean validateString(String s, int minLength) {
-		return s != null && !s.equals("") && s.length() >= minLength;
-	}
 
 	@Override
 	public void goToProfile() {
-		ProfilPanel profilPanel = new ProfilPanel(this.connectedUser);
-		profilPanel.addObserver(this);
+		ProfilPanel profilPanel = new ProfilPanel(this.userController.getConnectedUserModel());
+		profilPanel.addObserver(this.userController);
 		mMainView.setPanel(profilPanel, getNavBar());
 	}
 
 	@Override
 	public void goToUsers() {
-		usersModel.setUsers(mDatabase.getUsers());
-		UsersPanel usersPanel = new UsersPanel(usersModel);
-		usersPanel.addObserver(this);
+		UsersPanel usersPanel = new UsersPanel(this.userController.getUsersModel(), this.userController.getConnectedUserModel());
+		usersPanel.addObserver(this.userController);
 		mMainView.setPanel(usersPanel, getNavBar());
 	}
 
 	@Override
 	public void goToTwits() {
-		twitsModel.setTwits(mDatabase.getTwits());
-		TwitsPanel createTwitPanel = new TwitsPanel(this.twitsModel);
-		createTwitPanel.addObserver(this);
+		TwitsPanel createTwitPanel = new TwitsPanel(this.twitController.getTwitsModel(), this.userController.getConnectedUserModel());
+		createTwitPanel.addObserver(this.twitController);
 		mMainView.setPanel(createTwitPanel, getNavBar());
-	}
-
-	@Override
-	public void createTwit(User user, String twit) {
-		mEntityManager.sendTwit(new Twit(user, twit));
-		twitsModel.setTwits(mDatabase.getTwits());
 	}
 
 	@Override
 	public void goToExplorer() {
 		ExplorerPanel explorerPanel = new ExplorerPanel();
-		explorerPanel.addObserver(this);
+		explorerPanel.addObserver(this.twitController);
 		mMainView.setPanel(explorerPanel, getNavBar());
 	}
 

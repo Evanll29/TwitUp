@@ -1,21 +1,19 @@
 package com.iup.tp.twitup.ihm.users;
 
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
-import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
-import com.iup.tp.twitup.ihm.utils.RoundedBorder;
+import com.iup.tp.twitup.ihm.users.components.UserPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-public class UsersPanel extends JPanel {
+public class UsersPanel extends JPanel implements UsersListener{
 
     protected List<UsersObserver> usersObservers;
     protected JPanel usersPanel;
@@ -23,7 +21,7 @@ public class UsersPanel extends JPanel {
     protected Image backgroundImage;
     protected int gridY;
 
-    public UsersPanel(UsersModel usersModel) {
+    public UsersPanel(UsersModel usersModel, ConnectedUserModel connectedUserModel) {
         super(new GridBagLayout());
         gridY = 0;
         usersObservers = new ArrayList<>();
@@ -31,6 +29,7 @@ public class UsersPanel extends JPanel {
         scrollPane = new JScrollPane();
         scrollPane.setAutoscrolls(true);
         scrollPane.setViewportView(usersPanel);
+        usersModel.addUsersListener(this);
 
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
@@ -38,8 +37,10 @@ public class UsersPanel extends JPanel {
             e.printStackTrace();
         }
 
-        for(User user : usersModel.getUsersButConnected()) {
-            usersPanel.add(new UserPanel(user), new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
+        for(User user : usersModel.getUsersExcepted(connectedUserModel.getUserConnected())) {
+            UserPanel userPanel = new UserPanel(user);
+            userPanel.setObservers(this.usersObservers);
+            usersPanel.add(userPanel, new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
                     GridBagConstraints.BOTH, new Insets(10,0,10,0), 0, 0));
         }
 
@@ -55,5 +56,10 @@ public class UsersPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(backgroundImage, 0, 0, null);
+    }
+
+    @Override
+    public void update() {
+
     }
 }

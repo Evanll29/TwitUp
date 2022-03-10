@@ -1,12 +1,13 @@
 package com.iup.tp.twitup.ihm.connexion;
 
+import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Objects;
 public class ConnexionPanel extends JPanel {
 
     protected List<ConnexionObserver> connexionObservers;
+    protected List<NavigationObserver> navigationObservers;
     protected JPanel jPanelConnexion;
     protected JPanel jPanelTitre;
     protected JPanel jPanelText;
@@ -28,6 +30,7 @@ public class ConnexionPanel extends JPanel {
 
         super(new GridBagLayout());
         connexionObservers = new ArrayList<>();
+        navigationObservers = new ArrayList<>();
         jPanelTitre = new JPanel(new GridBagLayout());
         jPanelConnexion = new JPanel(new GridBagLayout());
         jPanelText = new JPanel(new GridBagLayout());
@@ -104,11 +107,15 @@ public class ConnexionPanel extends JPanel {
         // ACTION BOUTONS
         buttonLogin.addActionListener(a -> this.connexionObservers.forEach(c -> c.connect(fieldUsername.getText(), new String(fieldPassword.getPassword()))));
 
-        buttonRegister.addActionListener(a -> this.connexionObservers.forEach(c -> c.goToRegister(null)));
+        buttonRegister.addActionListener(a -> this.navigationObservers.forEach(c -> c.goToRegister(null)));
     }
 
-    public void addObserver(ConnexionObserver observer) {
+    public void addConnexionObserver(ConnexionObserver observer) {
         this.connexionObservers.add(observer);
+    }
+
+    public void addNavigationObserver(NavigationObserver observer) {
+        this.navigationObservers.add(observer);
     }
 
     public void addErrorMessage(String error) {

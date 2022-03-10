@@ -1,6 +1,6 @@
 package com.iup.tp.twitup.ihm.createUser;
 
-import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
+import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,6 +15,7 @@ import java.util.Objects;
 public class CreateUserPanel extends JPanel {
 
     protected List<CreationObserver> creationObservers;
+    protected List<NavigationObserver> navigationObservers;
     protected String pathToFile;
     protected JPanel jPanelCreation;
     protected JPanel jPanelText;
@@ -24,18 +25,19 @@ public class CreateUserPanel extends JPanel {
     public CreateUserPanel() {
         super(new GridBagLayout());
         this.creationObservers = new ArrayList<>();
+        this.navigationObservers = new ArrayList<>();
         jPanelCreation = new JPanel(new GridBagLayout());
         jPanelText = new JPanel(new GridBagLayout());
         jPanelButtons = new JPanel(new GridBagLayout());
 
         try {
-            backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
+            backgroundImage = ImageIO.read(Objects.requireNonNull(CreateUserPanel.class.getResource("/images/background.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         // JPANEL TEXT
-        JLabel labelTag = new JLabel("Login ");
+        JLabel labelTag = new JLabel("TwitUp tag: ");
         jPanelText.add(labelTag, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
@@ -51,7 +53,7 @@ public class CreateUserPanel extends JPanel {
         jPanelText.add(fieldPassword, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
-        JLabel labelName = new JLabel("Nom d'utilisateur ");
+        JLabel labelName = new JLabel("Nom d'utilisateur: ");
         jPanelText.add(labelName, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
@@ -63,7 +65,7 @@ public class CreateUserPanel extends JPanel {
         jPanelText.add(labelAvatar, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
-        JButton searchAvatar = new JButton("Choisir un fichier");
+        JButton searchAvatar = new JButton("Choisir un fichier: ");
         jPanelText.add(searchAvatar, new GridBagConstraints(1, 3, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
@@ -107,11 +109,15 @@ public class CreateUserPanel extends JPanel {
 
         buttonRegister.addActionListener(a -> this.creationObservers.forEach(c->c.register(fieldTag.getText(), new String(fieldPassword.getPassword()), fieldName.getText(), pathToFile)));
 
-        buttonLogin.addActionListener(a -> this.creationObservers.forEach(c -> c.goToConnexion(null)));
+        buttonLogin.addActionListener(a -> this.navigationObservers.forEach(c -> c.goToConnexion(null)));
     }
 
     public void addObserver(CreationObserver observer) {
         this.creationObservers.add(observer);
+    }
+
+    public void addNavigationObserver(NavigationObserver observer) {
+        this.navigationObservers.add(observer);
     }
 
     protected FileFilter getFileFilter() {

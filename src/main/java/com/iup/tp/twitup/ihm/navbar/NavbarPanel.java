@@ -9,7 +9,7 @@ import java.util.List;
 
 public class NavbarPanel extends JPanel {
 
-    protected List<NavbarObserver> navbarObservers;
+    protected List<NavigationObserver> navbarObservers;
 
     protected JPanel jPanelNavbar;
 
@@ -21,20 +21,20 @@ public class NavbarPanel extends JPanel {
         this.setBackground(Color.BLACK);
 
         // JPANEL NAVBAR
-        JButton accueil = new JButton("", new ImageIcon("src/resources/images/icon_home.png"));
-        JButton explorer = new JButton("", new ImageIcon("src/resources/images/icon_loupe.png"));
-        JButton profile = new JButton("", new ImageIcon("src/resources/images/icon_user.png"));
-        JButton users = new JButton("", new ImageIcon("src/resources/images/icon_users.png"));
+        JButton accueil = new JButton("", new ImageIcon(NavbarPanel.class.getResource("/images/icon_home.png")));
+        JButton explorer = new JButton("", new ImageIcon(NavbarPanel.class.getResource("/images/icon_loupe.png")));
+        JButton profile = new JButton("", new ImageIcon(NavbarPanel.class.getResource("/images/icon_user.png")));
+        JButton users = new JButton("", new ImageIcon(NavbarPanel.class.getResource("/images/icon_users.png")));
 
         accueil.setBorder(new RoundedBorder(10));
         explorer.setBorder(new RoundedBorder(10));
         profile.setBorder(new RoundedBorder(10));
         users.setBorder(new RoundedBorder(10));
 
-        accueil.addActionListener(a -> navbarObservers.forEach(NavbarObserver::goToTwits));
-        explorer.addActionListener(a -> navbarObservers.forEach(NavbarObserver::goToExplorer));
-        profile.addActionListener(a -> navbarObservers.forEach(NavbarObserver::goToProfile));
-        users.addActionListener(a -> navbarObservers.forEach(NavbarObserver::goToUsers));
+        accueil.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToTwits));
+        explorer.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToExplorer));
+        profile.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToProfile));
+        users.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToUsers));
 
 
         jPanelNavbar.add(accueil, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
@@ -52,7 +52,7 @@ public class NavbarPanel extends JPanel {
 
     }
 
-    public void addObserver(NavbarObserver observer) {
+    public void addObserver(NavigationObserver observer) {
         this.navbarObservers.add(observer);
     }
 

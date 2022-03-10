@@ -1,6 +1,6 @@
 package com.iup.tp.twitup.ihm;
 
-import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
+import com.iup.tp.twitup.ihm.connexion.ConnexionObserver;
 import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
 
 import javax.imageio.ImageIO;
@@ -20,6 +20,8 @@ public class TwitupMainView extends JFrame {
 
     protected List<MainViewObserver> mainViewObserverList;
 
+    protected List<ConnexionObserver> connexionObserverList;
+
     JPanel mainPanel;
 
     protected Image backgroundImage;
@@ -27,8 +29,9 @@ public class TwitupMainView extends JFrame {
     public TwitupMainView(String title) {
         super();
         this.mainViewObserverList = new ArrayList<>();
+        this.connexionObserverList = new ArrayList<>();
         this.setTitle(title);
-        helpIcon = new ImageIcon("src/main/resources/images/helpIcon.png");
+        helpIcon = new ImageIcon("src/resources/images/helpIcon.png");
     }
 
     /**
@@ -44,7 +47,7 @@ public class TwitupMainView extends JFrame {
             public void run() {
                 // Custom de l'affichage
                 Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-                setSize(new Dimension(screenSize.width - 300, screenSize.height - 300));
+                setSize(new Dimension(screenSize.width -300, screenSize.height - 300));
                 setLocation((screenSize.width - getWidth()) / 6,
                         (screenSize.height - getHeight()) / 4);
 
@@ -67,8 +70,7 @@ public class TwitupMainView extends JFrame {
         mainPanel = new JPanel(new GridBagLayout());
 
         try {
-            backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png"))
-            );
+            backgroundImage = ImageIO.read(Objects.requireNonNull(TwitupMainView.class.getResource("/images/background.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +81,7 @@ public class TwitupMainView extends JFrame {
         JMenu help = new JMenu("Help");
 
         JMenuItem deconnexion = new JMenuItem("Deconnexion", new ImageIcon("src/resources/images/deconnexion_icon.png"));
-        deconnexion.addActionListener(a -> mainViewObserverList.forEach(MainViewObserver::disconnectUser));
+        deconnexion.addActionListener(a -> connexionObserverList.forEach(ConnexionObserver::disconnectUser));
         JMenuItem close = new JMenuItem("Quitter", new ImageIcon("src/resources/images/exitIcon_20.png"));
         close.addActionListener(a -> mainViewObserverList.forEach(MainViewObserver::closeApp));
 
@@ -99,7 +101,7 @@ public class TwitupMainView extends JFrame {
         menuBar.add(help);
         this.setJMenuBar(menuBar);
 
-        this.getContentPane().add(mainPanel, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
+        this.getContentPane().add(mainPanel,new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     }
 
@@ -108,7 +110,7 @@ public class TwitupMainView extends JFrame {
         fileChooser.setDialogTitle("Choisir un répertoire d'échange");
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int retour = fileChooser.showOpenDialog(this);
-        if (retour == JFileChooser.APPROVE_OPTION) {
+        if(retour == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile().getAbsolutePath();
         } else {
             return currentDirectoryPath;
@@ -119,7 +121,7 @@ public class TwitupMainView extends JFrame {
     public void setPanel(JPanel panel, NavbarPanel navBar) {
         int gridX = 0;
         mainPanel.removeAll();
-        if (navBar != null) {
+        if(navBar != null) {
             mainPanel.add(navBar, new GridBagConstraints(gridX++, 0, 1, 1, 0, 1, GridBagConstraints.WEST,
                     GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         }
@@ -129,7 +131,10 @@ public class TwitupMainView extends JFrame {
         mainPanel.repaint();
     }
 
-    public void addObserver(MainViewObserver mainViewObserver) {
+    public void addMainViewObserver(MainViewObserver mainViewObserver) {
         this.mainViewObserverList.add(mainViewObserver);
+    }
+    public void addConnexionObserver(ConnexionObserver connexionObserver) {
+        this.connexionObserverList.add(connexionObserver);
     }
 }
