@@ -41,7 +41,6 @@ public class UserController implements ConnexionObserver, CreationObserver, User
         this.usersModel = new UsersModel();
         this.navigationObserver = navigationObserver;
         this.connectedUserModel = new ConnectedUserModel();
-        this.usersModel.setUsers(mDatabase.getUsers());
     }
 
     @Override
@@ -106,5 +105,9 @@ public class UserController implements ConnexionObserver, CreationObserver, User
 
     public UsersModel getUsersModel() {
         return usersModel;
+    }
+
+    public void initUsers() {
+        this.usersModel.setUsers(mDatabase.getUsers());
     }
 }

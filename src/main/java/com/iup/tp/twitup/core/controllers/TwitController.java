@@ -32,17 +32,19 @@ public class TwitController implements ExplorerObserver, CreateTwitObserver {
         this.mEntityManager = mEntityManager;
         this.mMainView = mMainView;
         twitsModel = new TwitsModel();
-        System.out.println(this.mDatabase.getTwits().size());
-        twitsModel.setTwits(this.mDatabase.getTwits());
     }
 
     @Override
     public void createTwit(User user, String twit) {
         mEntityManager.sendTwit(new Twit(user, twit));
-        twitsModel.setTwits(mDatabase.getTwits());
+        this.initTwits();
     }
 
     public TwitsModel getTwitsModel() {
         return twitsModel;
+    }
+
+    public void initTwits() {
+        twitsModel.setTwits(this.mDatabase.getTwits());
     }
 }

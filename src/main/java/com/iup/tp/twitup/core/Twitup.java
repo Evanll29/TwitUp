@@ -91,6 +91,9 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 
 		// Initialisation du répertoire d'échange
 		this.initDirectory();
+
+		this.twitController.initTwits();
+		this.userController.initUsers();
 	}
 
 	/**
