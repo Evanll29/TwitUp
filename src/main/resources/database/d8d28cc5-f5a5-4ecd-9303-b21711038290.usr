@@ -5,4 +5,6 @@
     <UserPassword>ismaelmohamed</UserPassword>
     <Name>Ismaël</Name>
     <AvatarPath>/images/user_icon.png</AvatarPath>
+    <follows>max3dec</follows>
+    <follows>m_kerboeuf</follows>
 </ns2:userXml>

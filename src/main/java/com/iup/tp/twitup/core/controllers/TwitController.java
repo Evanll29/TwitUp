@@ -40,40 +40,52 @@ public class TwitController implements ExplorerObserver, CreateTwitObserver {
     @Override
     public void createTwit(User user, String twit) {
         mEntityManager.sendTwit(new Twit(user, twit));
-        this.initTwits();
     }
 
     public TwitsModel getTwitsModel() {
         return twitsModel;
     }
 
-    public void initTwits() {
+    public void updateTwits() {
         twitsModel.setTwits(this.mDatabase.getTwits());
     }
 
     @Override
-    public void SearchTwit(String research) {
+    public void searchTwit(String research) {
+        if(research.startsWith("@")) {
+            twitsModel.setTwits(searchByUserTag(research.substring(1)));
+        } else if(research.startsWith("#")) {
+            twitsModel.setTwits(searchByTag(research.substring(1)));
+        } else {
+            twitsModel.setTwits(search(research));
+        }
+    }
+
+    protected Set<Twit> searchByUserTag(String search) {
         Set<Twit> allTwits = this.mDatabase.getTwits();
         Set<Twit> sortedTwits = new HashSet<>();
-        if(research.startsWith("@")) {
-            research = research.substring(1);
-            for(Twit twit : allTwits) {
-                if(twit.getUserTags().contains(research) || twit.getTwiter().getUserTag().contains(research)) {
-                    sortedTwits.add(twit);
-                }
-            }
-        } else if(research.startsWith("#")) {
-            research = research.substring(1);
-            for(Twit twit : allTwits) {
-                if(twit.getTags().contains(research)) {
-                    sortedTwits.add(twit);
-                }
-            }
-        } else {
-            for(Twit twit : allTwits) {
-
+        for(Twit twit : allTwits) {
+            if(twit.getUserTags().contains(search) || twit.getTwiter().getUserTag().contains(search)) {
+                sortedTwits.add(twit);
             }
         }
-        this.twitsModel.setTwits(sortedTwits);
+        return sortedTwits;
+    }
+
+    protected Set<Twit> searchByTag(String search) {
+        Set<Twit> allTwits = this.mDatabase.getTwits();
+        Set<Twit> sortedTwits = new HashSet<>();
+        for(Twit twit : allTwits) {
+            if(twit.getTags().contains(search)) {
+                sortedTwits.add(twit);
+            }
+        }
+        return sortedTwits;
+    }
+
+    protected Set<Twit> search(String search) {
+        Set<Twit> sortedTwits = searchByTag(search);
+        sortedTwits.addAll(searchByUserTag(search));
+        return sortedTwits;
     }
 }
