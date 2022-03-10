@@ -38,11 +38,7 @@ public class ExplorerPanel extends JPanel {
         jPanelExplorer.add(buttonTwit, new GridBagConstraints(1, 0, 1, 1, 0, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.NONE, new Insets(15, 10, 15, 10), 0, 0));
 
-        // JPANEL PARENT
-        jPanelMain.add(jPanelExplorer, new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-
-        this.add(jPanelMain, new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.CENTER,
+        this.add(jPanelExplorer, new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 10));
     }
 

@@ -8,26 +8,23 @@ import java.util.Set;
 
 public class TwitListPanel extends JPanel {
 
-    protected JPanel twitsPanel;
+    protected JPanel mainPanel;
     protected JScrollPane scrollPane;
 
     public TwitListPanel(Set<Twit> twits) {
         super(new GridBagLayout());
-
         int gridY = 0;
-        twitsPanel = new JPanel(new GridBagLayout());
+        mainPanel = new JPanel(new GridBagLayout());
         scrollPane = new JScrollPane();
         scrollPane.setAutoscrolls(true);
-        this.setOpaque(false);
-        scrollPane.setViewportView(twitsPanel);
+        scrollPane.setViewportView(mainPanel);
 
-        for(Twit twit : twits) {
-            twitsPanel.add(new TwitPanel(twit), new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH, new Insets(10,0,10,0), 0, 0));
+        for (Twit twit : twits) {
+            mainPanel.add(new TwitPanel(twit), new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH, new Insets(10, 0, 10, 0), 0, 0));
         }
 
-
-        this.add(twitsPanel, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.WEST,
+        this.add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, new Insets(10, 10, 10, 10), 0, 0));
     }
 }

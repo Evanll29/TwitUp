@@ -44,7 +44,7 @@ public class UsersPanel extends JPanel implements UsersListener{
                     GridBagConstraints.BOTH, new Insets(10,0,10,0), 0, 0));
         }
 
-        this.add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
+        this.add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, new Insets(20,20,20,20), 0, 0));
 
     }

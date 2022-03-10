@@ -125,7 +125,7 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 	 * pouvoir utiliser l'application</b>
 	 */
 	protected void initDirectory() {
-		String directory = mMainView.chooseDirectory(".");
+		String directory = mMainView.chooseDirectory("src/main/resources/database");
 		this.initDirectory(directory);
 	}
 
