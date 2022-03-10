@@ -35,8 +35,9 @@ public class TwitsPanel extends JPanel implements TwitsListener {
         }
 
         // JPANEL CREATE
-        JLabel labelAvatar = new JLabel(new ImageIcon(TwitsPanel.class.getResource(connectedUserModel.getUserConnected().getAvatarPath())));
-        labelAvatar.setPreferredSize(new Dimension(50, 50));
+        JLabel labelAvatar = new JLabel();
+        labelAvatar.setIcon(new ImageIcon(new ImageIcon(TwitsPanel.class.getResource(connectedUserModel.getUserConnected().getAvatarPath())).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT)));
+
         jPanelCreate.add(labelAvatar, new GridBagConstraints(0, 0, 1, 1, 0, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 

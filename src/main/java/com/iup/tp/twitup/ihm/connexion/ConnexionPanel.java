@@ -74,7 +74,7 @@ public class ConnexionPanel extends JPanel {
         fieldPassword = new JPasswordField();
         fieldPassword.setFont(fieldFont);
         fieldPassword.setBackground(Color.white);
-        fieldPassword.setForeground(Color.gray.brighter());
+        fieldPassword.setForeground(Color.BLACK);
         fieldPassword.setColumns(30);
         fieldPassword.setBorder(BorderFactory.createCompoundBorder(null,
                 new EmptyBorder(new Insets(15, 25, 15, 25))));
@@ -134,7 +134,7 @@ public class ConnexionPanel extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             // TODO Auto-generated method stub
-            if (activate == false) {
+            if (!activate) {
                 fieldUsername.setText("");
             }
             activate = true;

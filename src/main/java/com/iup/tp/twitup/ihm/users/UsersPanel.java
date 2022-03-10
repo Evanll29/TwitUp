@@ -46,7 +46,7 @@ public class UsersPanel extends JPanel implements UsersListener {
 
 
         // JPANEL TEXT
-        JTextField fieldTwit = new JTextField("Rechercher un twitup ...", 30);
+        JTextField fieldTwit = new JTextField("Rechercher un utilisateur ...", 30);
         fieldTwit.setForeground(Color.GRAY);
         explorerPanel.add(fieldTwit, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, new Insets(15, 10, 15, 10), 0, 0));
