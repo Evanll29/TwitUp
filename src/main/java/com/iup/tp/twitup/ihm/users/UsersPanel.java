@@ -13,10 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class UsersPanel extends JPanel implements UsersListener{
+public class UsersPanel extends JPanel implements UsersListener {
 
     protected List<UsersObserver> usersObservers;
     protected JPanel usersPanel;
+    protected JPanel explorerPanel;
     protected JScrollPane scrollPane;
     protected Image backgroundImage;
     protected int gridY;
@@ -28,6 +29,7 @@ public class UsersPanel extends JPanel implements UsersListener{
         gridY = 0;
         usersObservers = new ArrayList<>();
         usersPanel = new JPanel(new GridBagLayout());
+        explorerPanel = new JPanel(new GridBagLayout());
         scrollPane = new JScrollPane();
         scrollPane.setAutoscrolls(true);
         scrollPane.setViewportView(usersPanel);
@@ -42,15 +44,29 @@ public class UsersPanel extends JPanel implements UsersListener{
             e.printStackTrace();
         }
 
-        for(User user : usersModel.getUsersExcepted(connectedUserModel.getUserConnected())) {
+
+        // JPANEL TEXT
+        JTextField fieldTwit = new JTextField("Rechercher un twitup ...", 30);
+        fieldTwit.setForeground(Color.GRAY);
+        explorerPanel.add(fieldTwit, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH, new Insets(15, 10, 15, 10), 0, 0));
+
+        JButton buttonTwit = new JButton("Rechercher");
+        explorerPanel.add(buttonTwit, new GridBagConstraints(1, 0, 1, 1, 0, 1, GridBagConstraints.CENTER,
+                GridBagConstraints.NONE, new Insets(15, 10, 15, 10), 0, 0));
+
+        for (User user : usersModel.getUsersExcepted(connectedUserModel.getUserConnected())) {
             UserPanel userPanel = new UserPanel(user, connectedUserModel.getUserConnected().isFollowing(user));
             userPanel.setObservers(this.usersObservers);
             usersPanel.add(userPanel, new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH, new Insets(10,0,10,0), 0, 0));
+                    GridBagConstraints.BOTH, new Insets(10, 0, 10, 0), 0, 0));
         }
 
-        this.add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH, new Insets(20,20,20,20), 0, 0));
+        explorerPanel.setOpaque(false);
+        this.add(explorerPanel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
+                GridBagConstraints.HORIZONTAL, new Insets(0, 0, 10, 0), 0, 0));
+        this.add(scrollPane, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0));
 
     }
 
@@ -66,11 +82,11 @@ public class UsersPanel extends JPanel implements UsersListener{
     @Override
     public void update() {
         usersPanel.removeAll();
-        for(User user : usersModel.getUsersExcepted(connectedUserModel.getUserConnected())) {
+        for (User user : usersModel.getUsersExcepted(connectedUserModel.getUserConnected())) {
             UserPanel userPanel = new UserPanel(user, connectedUserModel.getUserConnected().isFollowing(user));
             userPanel.setObservers(this.usersObservers);
             usersPanel.add(userPanel, new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH, new Insets(10,0,10,0), 0, 0));
+                    GridBagConstraints.BOTH, new Insets(10, 0, 10, 0), 0, 0));
         }
         this.revalidate();
         this.repaint();

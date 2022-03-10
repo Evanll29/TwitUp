@@ -18,6 +18,8 @@ public class TwitListPanel extends JPanel {
         scrollPane = new JScrollPane();
         scrollPane.setAutoscrolls(true);
         scrollPane.setViewportView(mainPanel);
+        scrollPane.setOpaque(false);
+        this.setOpaque(false);
 
         for (Twit twit : twits) {
             mainPanel.add(new TwitPanel(twit), new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,

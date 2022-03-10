@@ -23,6 +23,7 @@ public class TwitsPanel extends JPanel implements TwitsListener {
         super(new GridBagLayout());
         createTwitObservers = new ArrayList<>();
         jPanelCreate = new JPanel(new GridBagLayout());
+        jPanelCreate.setOpaque(false);
         this.twitsModel = twitsModel;
         this.twitsModel.addTwitsListener(this);
         this.setOpaque(false);
@@ -39,9 +40,9 @@ public class TwitsPanel extends JPanel implements TwitsListener {
         jPanelCreate.add(labelAvatar, new GridBagConstraints(0, 0, 1, 1, 0, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
-        JTextField fieldTwit = new JTextField("TwitUper un joli message !", 60);
-        fieldTwit.setForeground(Color.GRAY);
+        JTextField fieldTwit = new JTextField("TwitUper un joli message !");
         fieldTwit.setDocument(new LimitJTextField(250));
+        fieldTwit.setFont(new Font("Arial", Font.PLAIN, 20));
         jPanelCreate.add(fieldTwit, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, new Insets(10, 10, 10, 10), 0, 0));
 
@@ -50,9 +51,6 @@ public class TwitsPanel extends JPanel implements TwitsListener {
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
         buttonTwit.addActionListener(a -> createTwitObservers.forEach(o -> o.createTwit(connectedUserModel.getUserConnected(), fieldTwit.getText())));
-
-        jPanelCreate.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Écrire un twit"));
 
         // JPANEL PARENT
         this.add(jPanelCreate, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
@@ -76,7 +74,7 @@ public class TwitsPanel extends JPanel implements TwitsListener {
     public void update() {
         this.remove(1);
         this.add(new TwitListPanel(twitsModel.getTwitsSortedByDate()), new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
-                GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+                GridBagConstraints.NONE, new Insets(0, 10, 0, 10), 0, 0));
         this.revalidate();
         this.repaint();
     }
