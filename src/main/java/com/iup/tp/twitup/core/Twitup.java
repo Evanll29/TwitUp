@@ -5,8 +5,7 @@ import java.io.File;
 
 import com.iup.tp.twitup.core.controllers.TwitController;
 import com.iup.tp.twitup.core.controllers.UserController;
-import com.iup.tp.twitup.datamodel.Database;
-import com.iup.tp.twitup.datamodel.IDatabase;
+import com.iup.tp.twitup.datamodel.*;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.MainViewObserver;
@@ -28,7 +27,7 @@ import javax.swing.*;
  * 
  * @author S.Lucas
  */
-public class Twitup implements NavigationObserver,  MainViewObserver {
+public class Twitup implements NavigationObserver, MainViewObserver, IDatabaseObserver {
 	/**
 	 * Base de données.
 	 */
@@ -92,8 +91,8 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 		// Initialisation du répertoire d'échange
 		this.initDirectory();
 
-		this.twitController.initTwits();
-		this.userController.initUsers();
+		this.twitController.updateTwits();
+		this.userController.updateUsers();
 	}
 
 	/**
@@ -155,6 +154,7 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 	 */
 	protected void initDatabase() {
 		mDatabase = new Database();
+		mDatabase.addObserver(this);
 		mEntityManager = new EntityManager(mDatabase);
 	}
 
@@ -224,6 +224,7 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 
 	@Override
 	public void goToTwits() {
+		this.twitController.updateTwits();
 		TwitsPanel createTwitPanel = new TwitsPanel(this.twitController.getTwitsModel(), this.userController.getConnectedUserModel());
 		createTwitPanel.addObserver(this.twitController);
 		mMainView.setPanel(createTwitPanel, getNavBar());
@@ -231,7 +232,7 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 
 	@Override
 	public void goToExplorer() {
-		ExplorerPanel explorerPanel = new ExplorerPanel();
+		ExplorerPanel explorerPanel = new ExplorerPanel(this.twitController.getTwitsModel());
 		explorerPanel.addObserver(this.twitController);
 		mMainView.setPanel(explorerPanel, getNavBar());
 	}
@@ -240,5 +241,36 @@ public class Twitup implements NavigationObserver,  MainViewObserver {
 		NavbarPanel navbarPanel = new NavbarPanel();
 		navbarPanel.addObserver(this);
 		return navbarPanel;
+	}
+
+	@Override
+	public void notifyTwitAdded(Twit addedTwit) {
+		this.twitController.updateTwits();
+	}
+
+	@Override
+	public void notifyTwitDeleted(Twit deletedTwit) {
+
+	}
+
+	@Override
+	public void notifyTwitModified(Twit modifiedTwit) {
+
+	}
+
+	@Override
+	public void notifyUserAdded(User addedUser) {
+
+	}
+
+	@Override
+	public void notifyUserDeleted(User deletedUser) {
+
+	}
+
+	@Override
+	public void notifyUserModified(User modifiedUser) {
+		this.userController.updateConnectedUser();
+		this.userController.updateUsers();
 	}
 }

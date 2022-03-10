@@ -1,5 +1,8 @@
 package com.iup.tp.twitup.ihm.explorer;
 
+import com.iup.tp.twitup.ihm.twit.TwitsListener;
+import com.iup.tp.twitup.ihm.twit.TwitsModel;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,19 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ExplorerPanel extends JPanel {
+public class ExplorerPanel extends JPanel implements TwitsListener {
 
     protected List<ExplorerObserver> explorerObservers;
     protected JPanel jPanelMain;
     protected JPanel jPanelExplorer;
     protected Image backgroundImage;
+    protected TwitsModel twitsModel;
 
-    public ExplorerPanel() {
+    public ExplorerPanel(TwitsModel twitsModel) {
 
         super(new GridBagLayout());
         explorerObservers = new ArrayList<>();
         jPanelMain = new JPanel(new GridBagLayout());
         jPanelExplorer = new JPanel(new GridBagLayout());
+        this.twitsModel = twitsModel;
+        this.twitsModel.addTwitsListener(this);
 
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(ExplorerPanel.class.getResource("/images/background.png")));
@@ -40,6 +46,8 @@ public class ExplorerPanel extends JPanel {
 
         this.add(jPanelExplorer, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+
+        buttonTwit.addActionListener(a -> explorerObservers.forEach(o -> o.searchTwit(fieldTwit.getText())));
     }
 
     public void addObserver(ExplorerObserver observer) {
@@ -49,5 +57,10 @@ public class ExplorerPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(backgroundImage, 0, 0, null);
+    }
+
+    @Override
+    public void update() {
+        System.out.println(twitsModel.getTwits().size());
     }
 }

@@ -50,7 +50,11 @@ public class TwitsPanel extends JPanel implements TwitsListener {
         jPanelCreate.add(buttonTwit, new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
                 GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
-        buttonTwit.addActionListener(a -> createTwitObservers.forEach(o -> o.createTwit(connectedUserModel.getUserConnected(), fieldTwit.getText())));
+        buttonTwit.addActionListener(a -> createTwitObservers.forEach(o -> {
+                o.createTwit(connectedUserModel.getUserConnected(), fieldTwit.getText());
+                fieldTwit.setText("");
+            }
+        ));
 
         // JPANEL PARENT
         this.add(jPanelCreate, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,

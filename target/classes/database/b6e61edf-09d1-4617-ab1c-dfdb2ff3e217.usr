@@ -5,4 +5,6 @@
     <UserPassword>a</UserPassword>
     <Name>Admin</Name>
     <AvatarPath>/images/user_icon.png</AvatarPath>
+    <follows>max3dec</follows>
+    <follows>ali_hs</follows>
 </ns2:userXml>

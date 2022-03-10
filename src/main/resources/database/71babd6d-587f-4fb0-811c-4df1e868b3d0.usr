@@ -5,4 +5,6 @@
     <UserPassword>titouanlarnicol</UserPassword>
     <Name>Titouan</Name>
     <AvatarPath>/images/user_icon.png</AvatarPath>
+    <follows>ismabouh</follows>
+    <follows>ali_hs</follows>
 </ns2:userXml>

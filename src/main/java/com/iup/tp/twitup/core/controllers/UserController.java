@@ -11,8 +11,10 @@ import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
 import com.iup.tp.twitup.ihm.users.UsersModel;
 import com.iup.tp.twitup.ihm.users.UsersObserver;
 
+import javax.swing.text.html.Option;
 import java.io.File;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.UUID;
 
 public class UserController implements ConnexionObserver, CreationObserver, UsersObserver {
@@ -43,11 +45,15 @@ public class UserController implements ConnexionObserver, CreationObserver, User
         this.connectedUserModel = new ConnectedUserModel();
     }
 
+    protected User getUserWithTag(String tag) {
+        return mDatabase.getUsers().stream().filter(u -> u.getUserTag().equals(tag)).findFirst().orElse(null);
+    }
+
     @Override
     public void connect(String username, String password) {
         boolean userExists = mDatabase.getUsers().stream().anyMatch(u -> u.getUserTag().equals(username) && u.getUserPassword().equals(password));
         if (userExists) {
-            this.connectedUserModel.setUserConnected(mDatabase.getUsers().stream().filter(u -> u.getUserTag().equals(username)).findFirst().get());
+            this.connectedUserModel.setUserConnected(getUserWithTag(username));
             navigationObserver.goToTwits();
         } else {
             navigationObserver.goToConnexion("Erreur: tag ou mot de passe incorrect");
@@ -86,7 +92,6 @@ public class UserController implements ConnexionObserver, CreationObserver, User
         User connectedUser = this.connectedUserModel.getUserConnected();
         if(unFollow) connectedUser.removeFollowing(tag);
         else connectedUser.addFollowing(tag);
-        connectedUserModel.setUserConnected(connectedUser);
         this.mEntityManager.sendUser(connectedUser);
     }
 
@@ -108,7 +113,11 @@ public class UserController implements ConnexionObserver, CreationObserver, User
         return usersModel;
     }
 
-    public void initUsers() {
+    public void updateUsers() {
         this.usersModel.setUsers(mDatabase.getUsers());
+    }
+
+    public void updateConnectedUser() {
+        this.connectedUserModel.setUserConnected(getUserWithTag(connectedUserModel.getUserConnected().getUserTag()));
     }
 }
