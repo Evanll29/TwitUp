@@ -82,11 +82,12 @@ public class UserController implements ConnexionObserver, CreationObserver, User
     }
 
     @Override
-    public void follow(String tag) {
+    public void setFollow(String tag, boolean unFollow) {
         User connectedUser = this.connectedUserModel.getUserConnected();
-        connectedUser.getFollows().add(tag);
+        if(unFollow) connectedUser.removeFollowing(tag);
+        else connectedUser.addFollowing(tag);
         connectedUserModel.setUserConnected(connectedUser);
-        this.mDatabase.modifiyUser(connectedUser);
+        this.mEntityManager.sendUser(connectedUser);
     }
 
     @Override

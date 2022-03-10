@@ -16,7 +16,7 @@ public class UserPanel extends JPanel {
     JPanel photoPanel;
     JPanel buttonsPanel;
 
-    public UserPanel(User user) {
+    public UserPanel(User user, boolean isFollowed) {
 
         super(new GridBagLayout());
         userPanel = new JPanel(new GridBagLayout());
@@ -25,7 +25,7 @@ public class UserPanel extends JPanel {
         buttonsPanel = new JPanel(new GridBagLayout());
 
         // JPANEL PHOTO
-        JLabel photo = new JLabel(new ImageIcon(user.getAvatarPath()));
+        JLabel photo = new JLabel(new ImageIcon(UserPanel.class.getResource(user.getAvatarPath())));
         photo.setPreferredSize(new Dimension(50, 50));
         photo.setBorder(new RoundedBorder(10));
         photoPanel.add(photo, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
@@ -47,7 +47,7 @@ public class UserPanel extends JPanel {
                 GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
 
         // JPANEL BUTTONS
-        JButton followButton = new JButton("Suivre");
+        JButton followButton = new JButton(isFollowed?"Ne plus suivre":"Suivre");
 
         buttonsPanel.add(followButton, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
@@ -72,7 +72,7 @@ public class UserPanel extends JPanel {
         this.add(userPanel, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.BOTH, new Insets(0, 10, 0, 0), 0, 0));
 
-        followButton.addActionListener(a -> this.usersObservers.forEach(o -> o.follow(user.getUserTag())));
+        followButton.addActionListener(a -> this.usersObservers.forEach(o -> o.setFollow(user.getUserTag(), isFollowed)));
     }
 
     public void setObservers(List<UsersObserver> usersObservers) {

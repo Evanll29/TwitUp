@@ -9,6 +9,9 @@ import com.iup.tp.twitup.ihm.explorer.ExplorerObserver;
 import com.iup.tp.twitup.ihm.twit.CreateTwitObserver;
 import com.iup.tp.twitup.ihm.twit.TwitsModel;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class TwitController implements ExplorerObserver, CreateTwitObserver {
     /**
      * Base de données.
@@ -46,5 +49,31 @@ public class TwitController implements ExplorerObserver, CreateTwitObserver {
 
     public void initTwits() {
         twitsModel.setTwits(this.mDatabase.getTwits());
+    }
+
+    @Override
+    public void SearchTwit(String research) {
+        Set<Twit> allTwits = this.mDatabase.getTwits();
+        Set<Twit> sortedTwits = new HashSet<>();
+        if(research.startsWith("@")) {
+            research = research.substring(1);
+            for(Twit twit : allTwits) {
+                if(twit.getUserTags().contains(research) || twit.getTwiter().getUserTag().contains(research)) {
+                    sortedTwits.add(twit);
+                }
+            }
+        } else if(research.startsWith("#")) {
+            research = research.substring(1);
+            for(Twit twit : allTwits) {
+                if(twit.getTags().contains(research)) {
+                    sortedTwits.add(twit);
+                }
+            }
+        } else {
+            for(Twit twit : allTwits) {
+
+            }
+        }
+        this.twitsModel.setTwits(sortedTwits);
     }
 }

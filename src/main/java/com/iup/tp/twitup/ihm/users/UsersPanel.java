@@ -20,6 +20,8 @@ public class UsersPanel extends JPanel implements UsersListener{
     protected JScrollPane scrollPane;
     protected Image backgroundImage;
     protected int gridY;
+    protected UsersModel usersModel;
+    protected ConnectedUserModel connectedUserModel;
 
     public UsersPanel(UsersModel usersModel, ConnectedUserModel connectedUserModel) {
         super(new GridBagLayout());
@@ -29,7 +31,10 @@ public class UsersPanel extends JPanel implements UsersListener{
         scrollPane = new JScrollPane();
         scrollPane.setAutoscrolls(true);
         scrollPane.setViewportView(usersPanel);
+        this.connectedUserModel = connectedUserModel;
+        this.usersModel = usersModel;
         usersModel.addUsersListener(this);
+        connectedUserModel.addUsersListener(this);
 
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(ConnexionPanel.class.getResource("/images/background.png")));
@@ -38,7 +43,7 @@ public class UsersPanel extends JPanel implements UsersListener{
         }
 
         for(User user : usersModel.getUsersExcepted(connectedUserModel.getUserConnected())) {
-            UserPanel userPanel = new UserPanel(user);
+            UserPanel userPanel = new UserPanel(user, connectedUserModel.getUserConnected().isFollowing(user));
             userPanel.setObservers(this.usersObservers);
             usersPanel.add(userPanel, new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
                     GridBagConstraints.BOTH, new Insets(10,0,10,0), 0, 0));
@@ -60,6 +65,14 @@ public class UsersPanel extends JPanel implements UsersListener{
 
     @Override
     public void update() {
-
+        usersPanel.removeAll();
+        for(User user : usersModel.getUsersExcepted(connectedUserModel.getUserConnected())) {
+            UserPanel userPanel = new UserPanel(user, connectedUserModel.getUserConnected().isFollowing(user));
+            userPanel.setObservers(this.usersObservers);
+            usersPanel.add(userPanel, new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH, new Insets(10,0,10,0), 0, 0));
+        }
+        this.revalidate();
+        this.repaint();
     }
 }
