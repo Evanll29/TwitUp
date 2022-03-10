@@ -4,5 +4,5 @@
     <UserTag>ali_hs</UserTag>
     <UserPassword>alihadjsaid</UserPassword>
     <Name>Ali</Name>
-    <AvatarPath>images\user_icon.png</AvatarPath>
+    <AvatarPath>/images/user_icon.png</AvatarPath>
 </ns2:userXml>

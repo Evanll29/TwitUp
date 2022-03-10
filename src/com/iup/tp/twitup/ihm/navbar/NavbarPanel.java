@@ -21,10 +21,10 @@ public class NavbarPanel extends JPanel {
         this.setBackground(Color.BLACK);
 
         // JPANEL NAVBAR
-        JButton accueil = new JButton("", new ImageIcon("src/resources/images/icon_home.png"));
-        JButton explorer = new JButton("", new ImageIcon("src/resources/images/icon_loupe.png"));
-        JButton profile = new JButton("", new ImageIcon("src/resources/images/icon_user.png"));
-        JButton users = new JButton("", new ImageIcon("src/resources/images/icon_users.png"));
+        JButton accueil = new JButton("", new ImageIcon(NavbarPanel.class.getResource("/images/icon_home.png")));
+        JButton explorer = new JButton("", new ImageIcon(NavbarPanel.class.getResource("/images/icon_loupe.png")));
+        JButton profile = new JButton("", new ImageIcon(NavbarPanel.class.getResource("/images/icon_user.png")));
+        JButton users = new JButton("", new ImageIcon(NavbarPanel.class.getResource("/images/icon_users.png")));
 
         accueil.setBorder(new RoundedBorder(10));
         explorer.setBorder(new RoundedBorder(10));
