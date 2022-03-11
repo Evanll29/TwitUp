@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
-    <ID>895fe605-5cd4-4d7e-ac85-471b55409e4f</ID>
-    <EmissionDate>1646986515100</EmissionDate>
-    <Twiter>5b4ba6bf-0617-4a75-9b9c-98d24b23a74f</Twiter>
-    <Text>Bonjour et bienvenue sur Twitup. Cette application est faite pour échanger et débattre dans la bonne humeur contrairement à son homologue, Twitter.</Text>
-</ns2:twitXml>
