@@ -77,13 +77,14 @@ public class UserController implements ConnexionObserver, CreationObserver, User
                 pathToAvatar = "/images/user_icon.png";
             } else {
                 String newFileName = "/images/profiles/" + (new File(pathToAvatar).getName());
-                FilesUtils.copyFile(pathToAvatar, newFileName);
+                FilesUtils.copyFile(pathToAvatar, "src/main/resources/" + newFileName);
                 pathToAvatar = newFileName;
             }
 
             User newUser = new User(UUID.randomUUID(), tag, password, name, new HashSet<>(), pathToAvatar);
             this.mEntityManager.sendUser(newUser);
             this.connectedUserModel.setUserConnected(newUser);
+            this.navigationObserver.goToConnexion("Compte créé avec succès, vous pouvez maintenant vous connecter.");
         }
     }
 

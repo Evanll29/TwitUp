@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
-    <ID>f34377cc-fb9f-43b7-bce7-977e7144246a</ID>
-    <EmissionDate>1646930504226</EmissionDate>
-    <Twiter>d8d28cc5-f5a5-4ecd-9303-b21711038290</Twiter>
-    <Text>Les gars, est-ce que vous voulez faire des #microservices avec moi ?</Text>
-</ns2:twitXml>
