@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm.users.components;
 
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
 import com.iup.tp.twitup.ihm.users.UsersObserver;
 import com.iup.tp.twitup.ihm.utils.RoundedBorder;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class UserPanel extends JPanel {
 
     protected List<UsersObserver> usersObservers;
+    protected List<NavigationObserver> navigationObservers;
     JPanel userPanel;
     JPanel textPanel;
     JPanel photoPanel;
@@ -78,9 +80,11 @@ public class UserPanel extends JPanel {
                 GridBagConstraints.BOTH, new Insets(0, 10, 0, 10), 0, 0));
 
         followButton.addActionListener(a -> this.usersObservers.forEach(o -> o.setFollow(user.getUserTag(), isFollowed)));
+        checkProfileButton.addActionListener(a -> this.navigationObservers.forEach(o -> o.goToProfile(user)));
     }
 
-    public void setObservers(List<UsersObserver> usersObservers) {
+    public void setObservers(List<UsersObserver> usersObservers, List<NavigationObserver> navigationObservers) {
         this.usersObservers = usersObservers;
+        this.navigationObservers = navigationObservers;
     }
 }

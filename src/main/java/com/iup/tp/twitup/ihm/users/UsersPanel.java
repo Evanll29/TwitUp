@@ -3,6 +3,7 @@ package com.iup.tp.twitup.ihm.users;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.connexion.ConnexionPanel;
+import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
 import com.iup.tp.twitup.ihm.users.components.UserPanel;
 
 import javax.imageio.ImageIO;
@@ -18,6 +19,7 @@ import java.util.Objects;
 public class UsersPanel extends JPanel implements UsersListener {
 
     protected List<UsersObserver> usersObservers;
+    protected List<NavigationObserver> navigationObservers;
     protected JPanel usersPanel;
     protected JPanel searchPanel;
     protected JScrollPane scrollPane;
@@ -30,6 +32,7 @@ public class UsersPanel extends JPanel implements UsersListener {
         super(new GridBagLayout());
         gridY = 0;
         usersObservers = new ArrayList<>();
+        navigationObservers = new ArrayList<>();
         usersPanel = new JPanel(new GridBagLayout());
         searchPanel = new JPanel(new GridBagLayout());
         scrollPane = new JScrollPane();
@@ -59,7 +62,7 @@ public class UsersPanel extends JPanel implements UsersListener {
 
         for (User user : usersModel.getUsersExcepted(connectedUserModel.getUserConnected())) {
             UserPanel userPanel = new UserPanel(user, connectedUserModel.getUserConnected().isFollowing(user));
-            userPanel.setObservers(this.usersObservers);
+            userPanel.setObservers(this.usersObservers, this.navigationObservers);
             usersPanel.add(userPanel, new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
                     GridBagConstraints.BOTH, new Insets(10, 0, 10, 0), 0, 0));
         }
@@ -91,8 +94,11 @@ public class UsersPanel extends JPanel implements UsersListener {
 
     }
 
-    public void addObserver(UsersObserver usersObserver) {
+    public void addUsersObserver(UsersObserver usersObserver) {
         this.usersObservers.add(usersObserver);
+    }
+    public void addNavigationObserver(NavigationObserver navigationObserver) {
+        this.navigationObservers.add(navigationObserver);
     }
 
     @Override
@@ -105,7 +111,7 @@ public class UsersPanel extends JPanel implements UsersListener {
         usersPanel.removeAll();
         for (User user : usersModel.getUsersExcepted(connectedUserModel.getUserConnected())) {
             UserPanel userPanel = new UserPanel(user, connectedUserModel.getUserConnected().isFollowing(user));
-            userPanel.setObservers(this.usersObservers);
+            userPanel.setObservers(this.usersObservers, this.navigationObservers);
             usersPanel.add(userPanel, new GridBagConstraints(0, gridY++, 1, 1, 1, 1, GridBagConstraints.CENTER,
                     GridBagConstraints.BOTH, new Insets(10, 0, 10, 0), 0, 0));
         }

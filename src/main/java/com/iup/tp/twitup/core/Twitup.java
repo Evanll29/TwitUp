@@ -210,8 +210,8 @@ public class Twitup implements NavigationObserver, MainViewObserver, IDatabaseOb
 
 
 	@Override
-	public void goToProfile() {
-		ProfilPanel profilPanel = new ProfilPanel(this.userController.getConnectedUserModel());
+	public void goToProfile(User user) {
+		ProfilPanel profilPanel = new ProfilPanel(user);
 		profilPanel.addObserver(this.userController);
 		mMainView.setPanel(profilPanel, getNavBar());
 	}
@@ -219,7 +219,8 @@ public class Twitup implements NavigationObserver, MainViewObserver, IDatabaseOb
 	@Override
 	public void goToUsers() {
 		UsersPanel usersPanel = new UsersPanel(this.userController.getUsersModel(), this.userController.getConnectedUserModel());
-		usersPanel.addObserver(this.userController);
+		usersPanel.addUsersObserver(this.userController);
+		usersPanel.addNavigationObserver(this);
 		mMainView.setPanel(usersPanel, getNavBar());
 	}
 
@@ -239,7 +240,7 @@ public class Twitup implements NavigationObserver, MainViewObserver, IDatabaseOb
 	}
 
 	public NavbarPanel getNavBar() {
-		NavbarPanel navbarPanel = new NavbarPanel();
+		NavbarPanel navbarPanel = new NavbarPanel(this.userController.getConnectedUserModel());
 		navbarPanel.addObserver(this);
 		return navbarPanel;
 	}

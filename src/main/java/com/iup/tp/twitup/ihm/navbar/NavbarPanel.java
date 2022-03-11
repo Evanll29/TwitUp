@@ -1,5 +1,6 @@
 package com.iup.tp.twitup.ihm.navbar;
 
+import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.utils.RoundedBorder;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ public class NavbarPanel extends JPanel {
 
     protected JPanel jPanelNavbar;
 
-    public NavbarPanel() {
+    public NavbarPanel(ConnectedUserModel connectedUserModel) {
         super(new GridBagLayout());
         navbarObservers = new ArrayList<>();
         jPanelNavbar = new JPanel(new GridBagLayout());
@@ -33,7 +34,7 @@ public class NavbarPanel extends JPanel {
 
         accueil.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToTwits));
         explorer.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToExplorer));
-        profile.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToProfile));
+        profile.addActionListener(a -> navbarObservers.forEach(n -> n.goToProfile(connectedUserModel.getUserConnected())));
         users.addActionListener(a -> navbarObservers.forEach(NavigationObserver::goToUsers));
 
 
