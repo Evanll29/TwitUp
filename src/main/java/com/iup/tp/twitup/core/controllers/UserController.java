@@ -15,6 +15,7 @@ import javax.swing.text.html.Option;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public class UserController implements ConnexionObserver, CreationObserver, UsersObserver {
@@ -97,8 +98,20 @@ public class UserController implements ConnexionObserver, CreationObserver, User
     }
 
     @Override
+    public void search(String search) {
+        Set<User> allUsers = this.mDatabase.getUsers();
+        Set<User> usersSorted = new HashSet<>();
+        for(User u : allUsers) {
+            if(u.getUserTag().contains(search) || u.getName().contains(search)) {
+                usersSorted.add(u);
+            }
+        }
+        this.usersModel.setUsers(usersSorted);
+    }
+
+    @Override
     public void disconnectUser() {
-        this.connectedUserModel.setUserConnected(null);
+        this.connectedUserModel.disconnectUser();
         navigationObserver.goToConnexion(null);
     }
 

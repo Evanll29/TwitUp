@@ -25,6 +25,10 @@ public class ConnectedUserModel {
         this.usersListeners.forEach(UsersListener::update);
     }
 
+    public void disconnectUser(){
+        this.userConnected = null;
+    }
+
     public void addUsersListener(UsersListener usersListener) {
         this.usersListeners.add(usersListener);
     }
