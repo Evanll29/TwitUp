@@ -19,6 +19,7 @@ public class TwitListPanel extends JPanel {
         scrollPane.setAutoscrolls(true);
         scrollPane.setViewportView(mainPanel);
         scrollPane.setOpaque(false);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
         this.setOpaque(false);
 
         for (Twit twit : twits) {
