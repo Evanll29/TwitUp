@@ -31,9 +31,8 @@ public class UserPanel extends JPanel {
         buttonsPanel.setBackground(Color.white);
 
         // JPANEL PHOTO
-        JLabel photo = new JLabel();
-        photo.setIcon(new ImageIcon(new ImageIcon(UserPanel.class.getResource(user.getAvatarPath())).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT)));
-
+        JLabel photo = new JLabel((new ImageIcon(new ImageIcon(UserPanel.class.getResource(user.getAvatarPath())).getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT))));
+        photo.setPreferredSize(new Dimension(70,70));
         photo.setBorder(new RoundedBorder(10));
         photoPanel.add(photo, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));

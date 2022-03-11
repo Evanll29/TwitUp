@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
+    <ID>a0cfaf36-c663-4e2b-b13a-509d099ba0f4</ID>
+    <EmissionDate>1646990595281</EmissionDate>
+    <Twiter>cd40a479-dffb-4aa3-9620-f90c2b1a14b4</Twiter>
+    <Text>J'ai perdu mon mot de passe @admin, comment je fais ? #jaiperdumonmotdepasse</Text>
+</ns2:twitXml>

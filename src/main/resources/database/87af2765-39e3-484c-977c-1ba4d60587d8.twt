@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
+    <ID>87af2765-39e3-484c-977c-1ba4d60587d8</ID>
+    <EmissionDate>1646990537564</EmissionDate>
+    <Twiter>81d45cfe-3e8f-4fb5-875c-6f87fb13f133</Twiter>
+    <Text>@alihj !!! j'adore #spring, tu veux de l'aide ?</Text>
+</ns2:twitXml>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
+    <ID>248c669e-5662-4d32-96ab-4c1aae9716f3</ID>
+    <EmissionDate>1646990955783</EmissionDate>
+    <Twiter>ed57b5bc-3599-4817-bb45-7ffacffad09b</Twiter>
+    <Text>Je m'ennuie maintenant que j'ai terminé de créer #twitup ... #boring @evan_le_mignon</Text>
+</ns2:twitXml>
