@@ -1,6 +1,8 @@
 package com.iup.tp.twitup.ihm.users;
 
 import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
+import com.iup.tp.twitup.ihm.users.components.UserPanel;
+import com.iup.tp.twitup.ihm.utils.RoundedBorder;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -36,9 +38,9 @@ public class ProfilPanel extends JPanel {
         }
 
         // JPANEL TOP
-
-        JLabel labelAvatar = new JLabel(new ImageIcon(ProfilPanel.class.getResource(connectedUserModel.getUserConnected().getAvatarPath())));
+        JLabel labelAvatar = new JLabel((new ImageIcon(new ImageIcon(UserPanel.class.getResource(connectedUserModel.getUserConnected().getAvatarPath())).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT))));
         labelAvatar.setPreferredSize(new Dimension(50,50));
+        labelAvatar.setBorder(new RoundedBorder(10));
         jPanelTop.add(labelAvatar, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
                 GridBagConstraints.NONE, new Insets(10, 10, 0, 10), 0, 0));
         JButton modifyButton = new JButton("Éditer le profil");

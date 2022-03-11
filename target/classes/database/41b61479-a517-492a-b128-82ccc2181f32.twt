@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
-    <ID>41b61479-a517-492a-b128-82ccc2181f32</ID>
-    <EmissionDate>1646926704716</EmissionDate>
-    <Twiter>b6e61edf-09d1-4617-ab1c-dfdb2ff3e217</Twiter>
-    <Text>test testtest testtest testtest testtest testtest testtest testtest testtest testtest testtest testtest testtest testtest testtest testtest testtest testtest testtest testtest test</Text>
-</ns2:twitXml>

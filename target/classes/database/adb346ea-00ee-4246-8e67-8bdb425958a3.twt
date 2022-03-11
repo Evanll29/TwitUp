@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
+    <ID>adb346ea-00ee-4246-8e67-8bdb425958a3</ID>
+    <EmissionDate>1646929922475</EmissionDate>
+    <Twiter>2fd00bfd-146f-47f1-af48-98a0bc0bef15</Twiter>
+    <Text>J'aime beaucoup l'application</Text>
+</ns2:twitXml>

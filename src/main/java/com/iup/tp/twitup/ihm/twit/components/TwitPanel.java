@@ -11,6 +11,7 @@ public class TwitPanel extends JPanel {
     JPanel twitPanel;
     JPanel titrePanel;
     JPanel contenuPanel;
+    JPanel iconsPanel;
 
     public TwitPanel(Twit twit) {
 
@@ -45,6 +46,9 @@ public class TwitPanel extends JPanel {
         twitContent.setFont(new Font("Arial", Font.PLAIN, 17));
         contenuPanel.add(twitContent, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+
+        // JPANEL ICONS
+
 
         // JPANEL PARENT
         twitPanel.setBorder(BorderFactory.createEtchedBorder());
