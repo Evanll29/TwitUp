@@ -1,5 +1,6 @@
 package com.iup.tp.twitup.ihm;
 
+import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.ihm.connexion.ConnexionObserver;
 import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
 
@@ -103,6 +104,14 @@ public class TwitupMainView extends JFrame {
 
         this.getContentPane().add(mainPanel,new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+    }
+
+    public void popUpTwit(Twit addedTwit) {
+        String[] options = {"Voir le twit"};
+        String content = addedTwit.getTwiter().getUserTag() + " a ajouté un nouveau twit:\n" + addedTwit.getText();
+        JOptionPane.showOptionDialog(this,
+                content, "Nouveau twit !",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, helpIcon, options, options[0]);
     }
 
     public String chooseDirectory(String currentDirectoryPath) {

@@ -245,7 +245,12 @@ public class Twitup implements NavigationObserver, MainViewObserver, IDatabaseOb
 
 	@Override
 	public void notifyTwitAdded(Twit addedTwit) {
-		this.twitController.updateTwits();
+		if(this.userController.getConnectedUserModel().getUserConnected() != null) {
+			this.twitController.updateTwits();
+			if(this.userController.getConnectedUserModel().getUserConnected().isFollowing(addedTwit.getTwiter())) {
+				this.mMainView.popUpTwit(addedTwit);
+			}
+		}
 	}
 
 	@Override
