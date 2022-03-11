@@ -114,6 +114,7 @@ public class Twitup implements NavigationObserver, MainViewObserver, IDatabaseOb
 		this.mMainView.showGUI();
 		this.mMainView.addMainViewObserver(this);
 		this.mMainView.addConnexionObserver(this.userController);
+		this.mMainView.addNavigationObserver(this);
 		this.goToConnexion(null);
 	}
 

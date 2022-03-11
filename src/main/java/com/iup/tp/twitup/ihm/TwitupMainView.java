@@ -3,6 +3,7 @@ package com.iup.tp.twitup.ihm;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.ihm.connexion.ConnexionObserver;
 import com.iup.tp.twitup.ihm.navbar.NavbarPanel;
+import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,16 +24,22 @@ public class TwitupMainView extends JFrame {
 
     protected List<ConnexionObserver> connexionObserverList;
 
+    protected List<NavigationObserver> navigationObserverList;
+
     JPanel mainPanel;
 
     protected Image backgroundImage;
+
+    ImageIcon twitupIcon;
 
     public TwitupMainView(String title) {
         super();
         this.mainViewObserverList = new ArrayList<>();
         this.connexionObserverList = new ArrayList<>();
+        this.navigationObserverList =  new ArrayList<>();
         this.setTitle(title);
-        helpIcon = new ImageIcon("src/resources/images/helpIcon.png");
+        helpIcon = new ImageIcon(TwitupMainView.class.getResource("/images/helpIcon.png"));
+        twitupIcon = new ImageIcon(TwitupMainView.class.getResource("/images/twitup.png"));
     }
 
     /**
@@ -65,8 +72,7 @@ public class TwitupMainView extends JFrame {
         // Création de la fenetre principale
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridBagLayout());
-        ImageIcon img = new ImageIcon("src/resources/images/twitup.png");
-        this.setIconImage(img.getImage());
+        this.setIconImage(twitupIcon.getImage());
 
         mainPanel = new JPanel(new GridBagLayout());
 
@@ -107,11 +113,14 @@ public class TwitupMainView extends JFrame {
     }
 
     public void popUpTwit(Twit addedTwit) {
-        String[] options = {"Voir le twit"};
+        String[] options = {"Ok","Voir le twit"};
         String content = addedTwit.getTwiter().getUserTag() + " a ajouté un nouveau twit:\n" + addedTwit.getText();
-        JOptionPane.showOptionDialog(this,
+        int choice = JOptionPane.showOptionDialog(this,
                 content, "Nouveau twit !",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, helpIcon, options, options[0]);
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, twitupIcon, options, options[0]);
+        if(choice == 1) {
+            this.navigationObserverList.forEach(NavigationObserver::goToTwits);
+        }
     }
 
     public String chooseDirectory(String currentDirectoryPath) {
@@ -145,5 +154,9 @@ public class TwitupMainView extends JFrame {
     }
     public void addConnexionObserver(ConnexionObserver connexionObserver) {
         this.connexionObserverList.add(connexionObserver);
+    }
+
+    public void addNavigationObserver(NavigationObserver navigationObserver) {
+        this.navigationObserverList.add(navigationObserver);
     }
 }
