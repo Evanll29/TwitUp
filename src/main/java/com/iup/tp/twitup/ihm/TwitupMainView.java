@@ -123,6 +123,14 @@ public class TwitupMainView extends JFrame {
         }
     }
 
+    public void popUpAccount() {
+        String[] options = {"Ok"};
+        JOptionPane.showOptionDialog(this,
+                "Compte créé avec succès", "Compte créé !",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, twitupIcon, options, options[0]);
+    }
+
+
     public String chooseDirectory(String currentDirectoryPath) {
         JFileChooser fileChooser = new JFileChooser(currentDirectoryPath);
         fileChooser.setDialogTitle("Choisir un répertoire d'échange");

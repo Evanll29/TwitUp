@@ -5,7 +5,7 @@ import com.iup.tp.twitup.datamodel.User;
 public interface NavigationObserver {
 
     void goToRegister(String error);
-    void goToConnexion(String error);
+    void goToConnexion(String error, boolean success);
 
     void goToProfile(User user);
     void goToUsers();

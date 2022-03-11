@@ -109,7 +109,7 @@ public class CreateUserPanel extends JPanel {
 
         buttonRegister.addActionListener(a -> this.creationObservers.forEach(c->c.register(fieldTag.getText(), new String(fieldPassword.getPassword()), fieldName.getText(), pathToFile)));
 
-        buttonLogin.addActionListener(a -> this.navigationObservers.forEach(c -> c.goToConnexion(null)));
+        buttonLogin.addActionListener(a -> this.navigationObservers.forEach(c -> c.goToConnexion(null, false)));
     }
 
     public void addObserver(CreationObserver observer) {
