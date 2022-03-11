@@ -5,4 +5,5 @@
     <UserPassword>steventheon</UserPassword>
     <Name>StevenLentrepreneur</Name>
     <AvatarPath>/images/profiles/steven.jpg</AvatarPath>
+    <follows>kykoulp</follows>
 </ns2:userXml>

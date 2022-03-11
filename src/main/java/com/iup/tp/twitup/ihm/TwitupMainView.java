@@ -114,7 +114,7 @@ public class TwitupMainView extends JFrame {
 
     public void popUpTwit(Twit addedTwit) {
         String[] options = {"Ok","Voir le twit"};
-        String content = addedTwit.getTwiter().getUserTag() + " a ajouté un nouveau twit:\n" + addedTwit.getText();
+        String content = "@" + addedTwit.getTwiter().getUserTag() + " a ajouté un nouveau twit:\n" + addedTwit.getText();
         int choice = JOptionPane.showOptionDialog(this,
                 content, "Nouveau twit !",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, twitupIcon, options, options[0]);
