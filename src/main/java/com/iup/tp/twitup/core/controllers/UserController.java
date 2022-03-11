@@ -3,7 +3,6 @@ package com.iup.tp.twitup.core.controllers;
 import com.iup.tp.twitup.common.FilesUtils;
 import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.datamodel.IDatabase;
-import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.connexion.ConnectedUserModel;
 import com.iup.tp.twitup.ihm.connexion.ConnexionObserver;
@@ -12,10 +11,8 @@ import com.iup.tp.twitup.ihm.navbar.NavigationObserver;
 import com.iup.tp.twitup.ihm.users.UsersModel;
 import com.iup.tp.twitup.ihm.users.UsersObserver;
 
-import javax.swing.text.html.Option;
 import java.io.File;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -58,7 +55,7 @@ public class UserController implements ConnexionObserver, CreationObserver, User
             this.connectedUserModel.setUserConnected(getUserWithTag(username));
             navigationObserver.goToTwits();
         } else {
-            navigationObserver.goToConnexion("Erreur: tag ou mot de passe incorrect");
+            navigationObserver.goToConnexion("Erreur: tag ou mot de passe incorrect", false);
         }
     }
 
@@ -86,7 +83,7 @@ public class UserController implements ConnexionObserver, CreationObserver, User
             User newUser = new User(UUID.randomUUID(), tag, password, name, new HashSet<>(), pathToAvatar);
             this.mEntityManager.sendUser(newUser);
             this.connectedUserModel.setUserConnected(newUser);
-            this.navigationObserver.goToConnexion("Compte créé avec succès, vous pouvez maintenant vous connecter.");
+            this.navigationObserver.goToConnexion(null, true);
         }
     }
 
@@ -113,7 +110,7 @@ public class UserController implements ConnexionObserver, CreationObserver, User
     @Override
     public void disconnectUser() {
         this.connectedUserModel.disconnectUser();
-        navigationObserver.goToConnexion(null);
+        navigationObserver.goToConnexion(null, false);
     }
 
     private boolean validateString(String s, int minLength) {

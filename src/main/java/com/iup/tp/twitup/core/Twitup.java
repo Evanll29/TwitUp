@@ -115,7 +115,7 @@ public class Twitup implements NavigationObserver, MainViewObserver, IDatabaseOb
 		this.mMainView.addMainViewObserver(this);
 		this.mMainView.addConnexionObserver(this.userController);
 		this.mMainView.addNavigationObserver(this);
-		this.goToConnexion(null);
+		this.goToConnexion(null, false);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class Twitup implements NavigationObserver, MainViewObserver, IDatabaseOb
 	}
 
 	@Override
-	public void goToConnexion(String error) {
+	public void goToConnexion(String error, boolean success) {
 		ConnexionPanel connexionPanel = new ConnexionPanel();
 		connexionPanel.addConnexionObserver(this.userController);
 		connexionPanel.addNavigationObserver(this);
@@ -206,6 +206,9 @@ public class Twitup implements NavigationObserver, MainViewObserver, IDatabaseOb
 			connexionPanel.addErrorMessage(error);
 		}
 		this.mMainView.setPanel(connexionPanel, null);
+		if(success) {
+			this.mMainView.popUpAccount();
+		}
 	}
 
 
