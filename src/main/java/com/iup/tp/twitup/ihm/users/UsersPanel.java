@@ -33,6 +33,7 @@ public class UsersPanel extends JPanel implements UsersListener {
         scrollPane = new JScrollPane();
         scrollPane.setAutoscrolls(true);
         scrollPane.setViewportView(usersPanel);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
         this.connectedUserModel = connectedUserModel;
         this.usersModel = usersModel;
         usersModel.addUsersListener(this);

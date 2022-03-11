@@ -3,6 +3,7 @@ package com.iup.tp.twitup.ihm.explorer;
 import com.iup.tp.twitup.ihm.twit.TwitsListener;
 import com.iup.tp.twitup.ihm.twit.TwitsModel;
 import com.iup.tp.twitup.ihm.twit.components.TwitListPanel;
+import com.iup.tp.twitup.ihm.utils.LimitJTextField;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,7 +16,6 @@ import java.util.Objects;
 public class ExplorerPanel extends JPanel implements TwitsListener {
 
     protected List<ExplorerObserver> explorerObservers;
-    protected JPanel jPanelMain;
     protected JPanel jPanelExplorer;
     protected Image backgroundImage;
     protected TwitsModel twitsModel;
@@ -24,11 +24,12 @@ public class ExplorerPanel extends JPanel implements TwitsListener {
 
         super(new GridBagLayout());
         explorerObservers = new ArrayList<>();
-        jPanelMain = new JPanel(new GridBagLayout());
         jPanelExplorer = new JPanel(new GridBagLayout());
         this.twitsModel = twitsModel;
         this.twitsModel.addTwitsListener(this);
+        jPanelExplorer.setOpaque(false);
 
+        // BACKGROUND IMAGE
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(ExplorerPanel.class.getResource("/images/background.png")));
         } catch (IOException e) {
@@ -37,7 +38,8 @@ public class ExplorerPanel extends JPanel implements TwitsListener {
 
         // JPANEL TEXT
         JTextField fieldTwit = new JTextField("Rechercher un twitup ...", 30);
-        fieldTwit.setForeground(Color.GRAY);
+        fieldTwit.setDocument(new LimitJTextField(250));
+        fieldTwit.setFont(new Font("Arial", Font.PLAIN, 20));
         jPanelExplorer.add(fieldTwit, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, new Insets(15, 10, 15, 10), 0, 0));
 
@@ -45,8 +47,9 @@ public class ExplorerPanel extends JPanel implements TwitsListener {
         jPanelExplorer.add(buttonTwit, new GridBagConstraints(1, 0, 1, 1, 0, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.NONE, new Insets(15, 10, 15, 10), 0, 0));
 
-        this.add(jPanelExplorer, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
-                GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+        // JPANEL PARENT
+        this.add(jPanelExplorer, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
+                GridBagConstraints.HORIZONTAL, new Insets(0, 0, 10, 0), 0, 0));
 
         this.add(new TwitListPanel(twitsModel.getTwitsSortedByDate()), new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
