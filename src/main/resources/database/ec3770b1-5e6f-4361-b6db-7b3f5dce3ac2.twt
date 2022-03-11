@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
+    <ID>ec3770b1-5e6f-4361-b6db-7b3f5dce3ac2</ID>
+    <EmissionDate>1646989449105</EmissionDate>
+    <Twiter>46d4873c-920e-42aa-afc0-d972404d3d01</Twiter>
+    <Text>La #cuisine de @titoularnics est incroyable, je ne peux plus m'arrêter de manger depuis ! #grand-mère</Text>
+</ns2:twitXml>

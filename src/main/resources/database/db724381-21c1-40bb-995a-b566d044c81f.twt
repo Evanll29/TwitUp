@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
+    <ID>db724381-21c1-40bb-995a-b566d044c81f</ID>
+    <EmissionDate>1646989064431</EmissionDate>
+    <Twiter>3c8642b4-347f-487a-81ed-a7142089b1a5</Twiter>
+    <Text>@kykoulp t'as vu ma nouvelle grosse voiture ??? #voiture</Text>
+</ns2:twitXml>

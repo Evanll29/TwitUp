@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
+    <ID>51204dfa-7b6d-444b-a5a8-88c4b92e1f32</ID>
+    <EmissionDate>1646988437830</EmissionDate>
+    <Twiter>faa2c5c1-3ed4-40ea-b9a3-ce56e3087935</Twiter>
+    <Text>Salut les twitos ! @max3dec @evan_le_mignon</Text>
+</ns2:twitXml>

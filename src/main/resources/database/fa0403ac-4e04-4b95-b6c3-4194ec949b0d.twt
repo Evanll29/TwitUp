@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:twitXml xmlns:ns2="http://www.example.org/twit/">
+    <ID>fa0403ac-4e04-4b95-b6c3-4194ec949b0d</ID>
+    <EmissionDate>1646989661317</EmissionDate>
+    <Twiter>ca2428c0-af4b-47db-8a80-9e649154f9d5</Twiter>
+    <Text>Salut tout le monde! #twitup c'est vraiment trop bien ! J'adore étaler ma vie aux gens qui ne s'y intéressent pas ! #boring</Text>
+</ns2:twitXml>
