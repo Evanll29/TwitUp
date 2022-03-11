@@ -7,6 +7,8 @@ import com.iup.tp.twitup.ihm.utils.LimitJTextField;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,6 +57,23 @@ public class ExplorerPanel extends JPanel implements TwitsListener {
                 GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
         buttonTwit.addActionListener(a -> explorerObservers.forEach(o -> o.searchTwit(fieldTwit.getText())));
+
+        fieldTwit.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                explorerObservers.forEach(o -> o.searchTwit(fieldTwit.getText()));
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                explorerObservers.forEach(o -> o.searchTwit(fieldTwit.getText()));
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
     }
 
     public void addObserver(ExplorerObserver observer) {
